@@ -223,6 +223,13 @@ footer{margin-top:80px;border-top:2px solid var(--ink);padding:30px 0 46px}
 .foot-links a:hover{color:var(--accent);border-color:var(--accent)}
 .foot-note{margin-top:26px;font-size:12.5px;color:var(--ink-soft)}
 
+/* ---------- use cases ---------- */
+.usecases{display:grid;grid-template-columns:repeat(3,1fr);gap:26px 24px;margin-top:12px}
+.usecase{padding-left:2px}
+.usecase .uc-ico{font-size:24px;line-height:1;display:block;margin-bottom:9px}
+.usecase b{font-family:var(--serif);font-weight:600;font-size:17px;display:block;margin-bottom:3px}
+.usecase p{font-size:14px;color:var(--ink-soft);margin:0}
+
 /* ---------- print/affiliate ---------- */
 .print-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
 .print-card{
@@ -282,6 +289,7 @@ footer{margin-top:80px;border-top:2px solid var(--ink);padding:30px 0 46px}
 
 @media (max-width:820px){
   .print-cards{grid-template-columns:1fr}
+  .usecases{grid-template-columns:1fr 1fr}
   .product{grid-template-columns:1fr;justify-items:center;text-align:center;gap:24px}
   .product-body .sub,.product-body ul{margin-left:auto;margin-right:auto}
   .product-body ul li{text-align:left}
@@ -304,6 +312,7 @@ footer{margin-top:80px;border-top:2px solid var(--ink);padding:30px 0 46px}
   <div class="masthead">
     <div class="wordmark">QR Forever<span class="dot">.</span></div>
     <nav>
+      <a href="#uses">Use cases</a>
       <a href="#why">Why this exists</a>
       <a href="#checklist">Print checklist</a>
       <a href="#guide">Guide</a>
@@ -413,6 +422,44 @@ footer{margin-top:80px;border-top:2px solid var(--ink);padding:30px 0 46px}
     <div><b>Nothing to pay</b>No trial that runs out. No plan that lapses. If this saves you a headache, share it with someone who prints things.</div>
   </div>
 </main>
+
+<section class="edu wrap" id="uses" style="padding-top:8px">
+  <p class="kicker">Use it for</p>
+  <h2>Made for the things you print once.</h2>
+  <p style="max-width:640px">Anywhere a code goes on something you can't easily reprint, a static code is the safe choice. Point it at a page you control, then change the page whenever you need to. The code keeps working.</p>
+  <div class="usecases">
+    <div class="usecase">
+      <span class="uc-ico">🍽️</span>
+      <b>Restaurant menus</b>
+      <p>Table tent to your live menu. Change prices on the page, never reprint the code.</p>
+    </div>
+    <div class="usecase">
+      <span class="uc-ico">📦</span>
+      <b>Product packaging</b>
+      <p>Box or label to a setup video, warranty registration, or reviews.</p>
+    </div>
+    <div class="usecase">
+      <span class="uc-ico">🏪</span>
+      <b>Storefront windows</b>
+      <p>Decal to your hours, online ordering, or loyalty signup. Scannable after close.</p>
+    </div>
+    <div class="usecase">
+      <span class="uc-ico">💼</span>
+      <b>Business cards</b>
+      <p>One scan drops your site or contact details straight into their phone.</p>
+    </div>
+    <div class="usecase">
+      <span class="uc-ico">🪧</span>
+      <b>Signs &amp; booths</b>
+      <p>Yard signs, banners, and trade show displays that send people to a campaign page.</p>
+    </div>
+    <div class="usecase">
+      <span class="uc-ico">📬</span>
+      <b>Flyers &amp; mailers</b>
+      <p>Direct mail and print ads to a landing page you can update anytime.</p>
+    </div>
+  </div>
+</section>
 
 <section class="edu wrap" id="why">
   <p class="kicker">Why this exists</p>
