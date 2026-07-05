@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QR Forever — free QR codes that never expire</title>
+<meta name="description" content="Make a QR code that matches your brand and never expires. Free, no account, no subscription. Generated in your browser. Your data never leaves your device.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#faf6ef;
+  --paper-deep:#f3ecdf;
+  --ink:#1b1913;
+  --ink-soft:#5c564a;
+  --line:#e0d7c5;
+  --accent:#d84a1b;
+  --accent-deep:#b53a12;
+  --ok:#2e6e4e;
+  --warn-bg:#fdf0e3;
+  --warn-border:#e8b07a;
+  --card:#ffffff;
+  --radius:14px;
+  --serif:"Fraunces",Georgia,serif;
+  --sans:"Public Sans",-apple-system,"Helvetica Neue",sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.6;
+  font-size:16px;
+}
+/* subtle paper grain */
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+  background-image:radial-gradient(rgba(27,25,19,.035) 1px,transparent 1px);
+  background-size:5px 5px;
+}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+
+/* ---------- header ---------- */
+header{padding:26px 0 0}
+.masthead{display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-bottom:2px solid var(--ink);padding-bottom:14px}
+.wordmark{font-family:var(--serif);font-weight:700;font-size:22px;letter-spacing:-.01em}
+.wordmark .dot{color:var(--accent)}
+.masthead nav{font-size:13px;font-weight:600}
+.masthead nav a{color:var(--ink-soft);text-decoration:none;margin-left:18px}
+.masthead nav a:hover{color:var(--accent)}
+
+/* ---------- hero ---------- */
+.hero{padding:54px 0 34px;text-align:left;max-width:720px}
+.hero h1{
+  font-family:var(--serif);font-weight:600;letter-spacing:-.02em;
+  font-size:clamp(34px,5.2vw,54px);line-height:1.08;
+}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero p{margin-top:16px;font-size:18px;color:var(--ink-soft);max-width:560px}
+.hero .badges{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+.badge{
+  font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;
+  border:1px solid var(--line);background:var(--card);border-radius:999px;padding:5px 12px;color:var(--ink-soft);
+}
+.badge b{color:var(--ok);font-weight:700}
+
+/* ---------- tool ---------- */
+.tool{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:0 1px 2px rgba(27,25,19,.04),0 12px 40px -18px rgba(27,25,19,.18);
+  display:grid;grid-template-columns:1.15fr .85fr;overflow:hidden;
+}
+.controls{padding:30px 32px;border-right:1px solid var(--line)}
+.stage{background:var(--paper-deep);padding:30px 28px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:16px}
+
+.field-label{
+  display:block;font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--ink-soft);margin:0 0 8px;
+}
+.step-num{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:18px;height:18px;border-radius:50%;background:var(--ink);color:var(--paper);
+  font-size:11px;font-weight:700;margin-right:7px;letter-spacing:0;
+}
+.control-group{margin-bottom:26px}
+.control-group:last-child{margin-bottom:0}
+
+input[type="url"]{
+  width:100%;font-family:var(--sans);font-size:16px;padding:13px 14px;
+  border:1.5px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);
+  transition:border-color .15s;
+}
+input[type="url"]:focus{outline:none;border-color:var(--ink)}
+
+/* presets */
+.presets{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.preset{
+  border:1.5px solid var(--line);border-radius:10px;background:var(--card);
+  padding:10px 6px 8px;cursor:pointer;text-align:center;transition:border-color .15s,transform .1s;
+  font-family:var(--sans);
+}
+.preset:hover{border-color:var(--ink-soft)}
+.preset.active{border-color:var(--ink);background:var(--paper)}
+.preset svg{display:block;margin:0 auto 6px;width:34px;height:34px}
+.preset span{font-size:11.5px;font-weight:600;color:var(--ink)}
+
+/* colors */
+.color-row{display:flex;gap:12px;flex-wrap:wrap}
+.color-chip{
+  display:flex;align-items:center;gap:9px;border:1.5px solid var(--line);border-radius:10px;
+  background:var(--card);padding:8px 12px 8px 8px;cursor:pointer;
+}
+.color-chip input[type="color"]{
+  -webkit-appearance:none;appearance:none;width:30px;height:30px;border:none;border-radius:7px;
+  cursor:pointer;background:none;padding:0;
+}
+.color-chip input[type="color"]::-webkit-color-swatch-wrapper{padding:0}
+.color-chip input[type="color"]::-webkit-color-swatch{border:1px solid rgba(0,0,0,.12);border-radius:7px}
+.color-chip label{font-size:13px;font-weight:600;cursor:pointer}
+.swap-btn{
+  border:none;background:none;color:var(--ink-soft);font-size:12px;font-weight:600;cursor:pointer;
+  text-decoration:underline;text-underline-offset:3px;padding:4px;
+}
+.swap-btn:hover{color:var(--accent)}
+
+/* logo */
+.logo-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.file-btn{
+  display:inline-flex;align-items:center;gap:8px;border:1.5px dashed var(--ink-soft);border-radius:10px;
+  padding:10px 14px;font-size:13.5px;font-weight:600;cursor:pointer;background:var(--paper);color:var(--ink);
+}
+.file-btn:hover{border-color:var(--ink)}
+.file-btn input{display:none}
+.logo-clear{border:none;background:none;color:var(--ink-soft);font-size:12.5px;font-weight:600;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.logo-clear:hover{color:var(--accent)}
+.hint{font-size:12.5px;color:var(--ink-soft);margin-top:8px}
+
+/* warning */
+.warning{
+  display:none;margin-top:22px;background:var(--warn-bg);border:1px solid var(--warn-border);
+  border-radius:10px;padding:12px 14px;font-size:13.5px;color:#7a4a12;font-weight:500;
+}
+.warning.show{display:block}
+.warning b{font-weight:700}
+
+/* stage / preview */
+.qr-frame{
+  background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px;
+  box-shadow:0 2px 10px rgba(27,25,19,.07);
+  width:266px;height:266px;display:flex;align-items:center;justify-content:center;
+}
+#qr-preview canvas,#qr-preview svg{max-width:230px;max-height:230px;display:block}
+.scan-tip{font-size:13px;color:var(--ink-soft);text-align:center;max-width:240px}
+.scan-tip b{color:var(--ink)}
+
+/* downloads */
+.dl-block{width:100%;max-width:280px}
+.dl-row{display:flex;gap:8px;margin-bottom:10px}
+select{
+  flex:1;font-family:var(--sans);font-size:13.5px;font-weight:600;padding:10px 10px;
+  border:1.5px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);cursor:pointer;
+}
+select:focus{outline:none;border-color:var(--ink)}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  font-family:var(--sans);font-size:14.5px;font-weight:700;letter-spacing:.01em;
+  border:none;border-radius:10px;padding:13px 18px;cursor:pointer;transition:transform .1s,background .15s;
+  width:100%;
+}
+.btn:active{transform:scale(.985)}
+.btn-primary{background:var(--ink);color:var(--paper)}
+.btn-primary:hover{background:#000}
+.btn-secondary{background:none;border:1.5px solid var(--ink);color:var(--ink);margin-top:8px}
+.btn-secondary:hover{background:var(--paper)}
+.transparent-row{display:flex;align-items:center;gap:8px;margin-top:12px;font-size:13px;font-weight:600;color:var(--ink-soft);justify-content:center}
+.transparent-row input{accent-color:var(--ink);width:15px;height:15px;cursor:pointer}
+.transparent-row label{cursor:pointer}
+
+/* ---------- promise strip ---------- */
+.promise{
+  margin:20px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+  border:1px solid var(--line);border-radius:var(--radius);background:var(--card);overflow:hidden;
+}
+.promise div{padding:16px 20px;border-right:1px solid var(--line);font-size:13.5px;color:var(--ink-soft)}
+.promise div:last-child{border-right:none}
+.promise b{display:block;color:var(--ink);font-size:14px;margin-bottom:2px}
+
+/* ---------- education ---------- */
+.edu{padding:84px 0 20px;max-width:680px}
+.kicker{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.edu h2{font-family:var(--serif);font-weight:600;font-size:clamp(26px,3.6vw,36px);letter-spacing:-.015em;line-height:1.15;margin-bottom:18px}
+.edu p{color:var(--ink-soft);margin-bottom:16px;font-size:16.5px}
+.edu p b,.edu li b{color:var(--ink)}
+.pull{
+  border-left:3px solid var(--accent);padding:6px 0 6px 20px;margin:26px 0;
+  font-family:var(--serif);font-size:20px;line-height:1.4;color:var(--ink);font-weight:500;
+}
+.checklist{list-style:none;margin:10px 0 0}
+.checklist li{
+  padding:13px 0 13px 34px;border-bottom:1px solid var(--line);color:var(--ink-soft);position:relative;font-size:15.5px;
+}
+.checklist li::before{
+  content:"✓";position:absolute;left:2px;top:12px;color:var(--ok);font-weight:700;font-size:15px;
+}
+.faq{margin-top:8px}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{
+  cursor:pointer;padding:15px 0;font-weight:600;font-size:15.5px;list-style:none;position:relative;padding-right:28px;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:4px;top:12px;font-size:19px;color:var(--accent);font-weight:500}
+.faq details[open] summary::after{content:"–"}
+.faq details p{padding:0 0 16px;font-size:15px}
+
+/* ---------- footer ---------- */
+footer{margin-top:80px;border-top:2px solid var(--ink);padding:30px 0 46px}
+.foot-grid{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:flex-start}
+.foot-left p{font-size:14px;color:var(--ink-soft);max-width:420px;margin-top:6px}
+.foot-links{display:flex;flex-direction:column;gap:10px;font-size:14px;font-weight:600}
+.foot-links a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:1px}
+.foot-links a:hover{color:var(--accent);border-color:var(--accent)}
+.foot-note{margin-top:26px;font-size:12.5px;color:var(--ink-soft)}
+
+@media (max-width:820px){
+  .tool{grid-template-columns:1fr}
+  .controls{border-right:none;border-bottom:1px solid var(--line)}
+  .promise{grid-template-columns:1fr}
+  .promise div{border-right:none;border-bottom:1px solid var(--line)}
+  .promise div:last-child{border-bottom:none}
+  .presets{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:600px){
+  .masthead nav{display:none}
+}
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <div class="masthead">
+    <div class="wordmark">QR Forever<span class="dot">.</span></div>
+    <nav>
+      <a href="#why">Why this exists</a>
+      <a href="#checklist">Print checklist</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero wrap">
+  <h1>A QR code that matches your brand and <em>never expires.</em></h1>
+  <p>Free. No account, no subscription, no tracking. Your code is generated right here in your browser and the destination is baked in permanently. Print it with confidence.</p>
+  <div class="badges">
+    <span class="badge"><b>●</b>&nbsp; Runs in your browser</span>
+    <span class="badge"><b>●</b>&nbsp; Nothing uploaded, ever</span>
+    <span class="badge"><b>●</b>&nbsp; No expiration, by design</span>
+  </div>
+</section>
+
+<main class="wrap">
+  <div class="tool" id="tool">
+    <div class="controls">
+
+      <div class="control-group">
+        <span class="field-label"><span class="step-num">1</span>Where should it point?</span>
+        <input type="url" id="url-input" placeholder="https://yourbrand.com" value="" autocomplete="off" spellcheck="false">
+      </div>
+
+      <div class="control-group">
+        <span class="field-label"><span class="step-num">2</span>Pick a style</span>
+        <div class="presets" id="presets">
+          <button class="preset active" data-preset="classic" type="button">
+            <svg viewBox="0 0 34 34"><g fill="currentColor"><rect x="2" y="2" width="12" height="12"/><rect x="20" y="2" width="12" height="12"/><rect x="2" y="20" width="12" height="12"/><rect x="22" y="22" width="4" height="4"/><rect x="28" y="22" width="4" height="4"/><rect x="22" y="28" width="4" height="4"/></g></svg>
+            <span>Classic</span>
+          </button>
+          <button class="preset" data-preset="rounded" type="button">
+            <svg viewBox="0 0 34 34"><g fill="currentColor"><rect x="2" y="2" width="12" height="12" rx="4"/><rect x="20" y="2" width="12" height="12" rx="4"/><rect x="2" y="20" width="12" height="12" rx="4"/><rect x="22" y="22" width="4" height="4" rx="1.6"/><rect x="28" y="22" width="4" height="4" rx="1.6"/><rect x="22" y="28" width="4" height="4" rx="1.6"/></g></svg>
+            <span>Rounded</span>
+          </button>
+          <button class="preset" data-preset="dots" type="button">
+            <svg viewBox="0 0 34 34"><g fill="currentColor"><rect x="2" y="2" width="12" height="12" rx="6"/><rect x="20" y="2" width="12" height="12" rx="6"/><rect x="2" y="20" width="12" height="12" rx="6"/><circle cx="24" cy="24" r="2"/><circle cx="30" cy="24" r="2"/><circle cx="24" cy="30" r="2"/></g></svg>
+            <span>Dots</span>
+          </button>
+          <button class="preset" data-preset="print" type="button">
+            <svg viewBox="0 0 34 34"><g fill="currentColor"><rect x="2" y="2" width="12" height="12"/><rect x="20" y="2" width="12" height="12"/><rect x="2" y="20" width="12" height="12"/><rect x="20" y="20" width="12" height="12"/></g></svg>
+            <span>Print-safe</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <span class="field-label"><span class="step-num">3</span>Your colors</span>
+        <div class="color-row">
+          <div class="color-chip">
+            <input type="color" id="fg-color" value="#1b1913">
+            <label for="fg-color">Code</label>
+          </div>
+          <div class="color-chip">
+            <input type="color" id="bg-color" value="#ffffff">
+            <label for="bg-color">Background</label>
+          </div>
+          <button class="swap-btn" id="swap-colors" type="button">swap</button>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <span class="field-label"><span class="step-num">4</span>Logo <span style="text-transform:none;font-weight:500;letter-spacing:0">(optional)</span></span>
+        <div class="logo-row">
+          <label class="file-btn">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 10V1M7 1L3.5 4.5M7 1l3.5 3.5M1 10v2a1 1 0 001 1h10a1 1 0 001-1v-2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Add your logo
+            <input type="file" id="logo-input" accept="image/png,image/jpeg,image/svg+xml">
+          </label>
+          <button class="logo-clear" id="logo-clear" type="button" style="display:none">remove logo</button>
+        </div>
+        <p class="hint" id="logo-hint">PNG, JPG, or SVG. We automatically raise the code's error correction so the logo never breaks scanning.</p>
+      </div>
+
+      <div class="warning" id="contrast-warning"></div>
+    </div>
+
+    <div class="stage">
+      <div class="qr-frame"><div id="qr-preview"></div></div>
+      <p class="scan-tip"><b>Test it now:</b> point your phone camera at the preview. If it scans on screen, it will scan in print.</p>
+      <div class="dl-block">
+        <div class="dl-row">
+          <select id="png-size">
+            <option value="500">Small · 500px</option>
+            <option value="1000" selected>Standard · 1000px</option>
+            <option value="2000">Large · 2000px</option>
+            <option value="4000">Print · 4000px</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" id="dl-png" type="button">Download PNG</button>
+        <button class="btn btn-secondary" id="dl-svg" type="button">Download SVG (vector)</button>
+        <div class="transparent-row">
+          <input type="checkbox" id="transparent-bg">
+          <label for="transparent-bg">Transparent background</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="promise">
+    <div><b>Nothing to break</b>No server sits between your code and your link. The destination is encoded in the pattern itself.</div>
+    <div><b>Nothing collected</b>This page never sees your URL, your logo, or your downloads. Everything happens on your device.</div>
+    <div><b>Nothing to pay</b>No trial that runs out. No plan that lapses. If this saves you a headache, share it with someone who prints things.</div>
+  </div>
+</main>
+
+<section class="edu wrap" id="why">
+  <p class="kicker">Why this exists</p>
+  <h2>Most QR generators rent you your own QR code.</h2>
+  <p>Here is the trick, and it is a good one: many popular QR tools create <b>dynamic codes</b>. Instead of pointing to your website, the code points to their redirect server, which then forwards people to your website. That is how they track scans, and it is also the hook.</p>
+  <p>Because the moment your free trial ends or your subscription lapses, that redirect dies. The code itself is fine. It is printed on 10,000 brochures, a trade show booth, a restaurant menu, the side of a van. It just goes nowhere. Some services then offer to reactivate it, for a fee. Your printed materials become their leverage.</p>
+  <div class="pull">A static QR code is just geometry. Your link, encoded in a pattern. Nobody can turn it off, including us.</div>
+  <p>That is the whole idea behind this tool. It generates <b>static codes only</b>, in your browser, with the destination baked in permanently. There is no server to shut down, no account to lapse, and no company between your customer and your website. The tradeoff is honest: you do not get scan analytics, and the destination cannot be changed after printing. For most brand uses, links you control and intend to keep, that is the right trade.</p>
+</section>
+
+<section class="edu wrap" id="checklist" style="padding-top:56px">
+  <p class="kicker">Before you print</p>
+  <h2>The five-point print checklist.</h2>
+  <ul class="checklist">
+    <li><b>Test-scan the actual file</b> on at least two phones before it goes anywhere near a printer. Screen first, then a test print.</li>
+    <li><b>Keep it at least 2 x 2 cm (0.8 x 0.8 in)</b> in print. Bigger if people scan from a distance. A rough rule: scanning distance divided by 10.</li>
+    <li><b>Dark code on a light background.</b> Inverted codes and low-contrast palettes are the number one cause of failed scans. This tool warns you when a combination is risky.</li>
+    <li><b>Leave the quiet zone alone.</b> The empty margin around the code is part of the code. This tool includes it automatically. Do not crop it in your layout.</li>
+    <li><b>Use the SVG for print.</b> Vector files stay sharp at any size. Hand your printer the SVG, keep the PNG for screens.</li>
+  </ul>
+</section>
+
+<section class="edu wrap" id="faq" style="padding-top:56px">
+  <p class="kicker">Questions</p>
+  <h2>Fair questions, straight answers.</h2>
+  <div class="faq">
+    <details>
+      <summary>Will this code really work forever?</summary>
+      <p>The code will always encode the exact link you typed. As long as that link works, the code works. There is no service in the middle that can expire, because there is no service in the middle at all.</p>
+    </details>
+    <details>
+      <summary>Can I change the destination after printing?</summary>
+      <p>No, and that is the tradeoff for permanence. The destination is part of the pattern. If you expect the link to change, point the code at a page you control, like yourbrand.com/menu, and update that page instead.</p>
+    </details>
+    <details>
+      <summary>Do you see my links or my logo?</summary>
+      <p>No. The code is generated by JavaScript running on your device. Your URL, your logo, and your downloads never touch a server. You can load this page, disconnect from the internet, and it still works.</p>
+    </details>
+    <details>
+      <summary>What is the catch?</summary>
+      <p>There is not one. This is a free tool built to make a point about how QR codes should work. If it is useful, share it with someone who prints things.</p>
+    </details>
+    <details>
+      <summary>Why does my logo make the code look denser?</summary>
+      <p>When you add a logo, we raise the code's error correction to the highest level, which adds redundancy so the code scans reliably even with part of it covered. Denser, but safer. That is the correct way to do logo codes.</p>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-grid">
+    <div class="foot-left">
+      <div class="wordmark">QR Forever<span class="dot">.</span></div>
+      <p>Codes generated in your browser. They never expire. We never see your data. Built to make a point, free to keep it honest.</p>
+    </div>
+    <div class="foot-links">
+      <span style="font-weight:600;color:var(--ink-soft)">Built by Bud Hennekes</span>
+    </div>
+  </div>
+  <div class="wrap foot-note">No cookies, no analytics, no accounts. Just a QR code that works.</div>
+</footer>
+
+<script src="qr-code-styling.js"></script>
+<script>
+(function(){
+  var DEFAULT_URL = "https://yourbrand.com";
+
+  var state = {
+    url: "",
+    preset: "classic",
+    fg: "#1b1913",
+    bg: "#ffffff",
+    logo: null,        // dataURL
+    transparent: false
+  };
+
+  var PRESETS = {
+    classic: { dots:"square",        corners:"square",       cornerDot:"square" },
+    rounded: { dots:"rounded",       corners:"extra-rounded",cornerDot:"dot"    },
+    dots:    { dots:"dots",          corners:"extra-rounded",cornerDot:"dot"    },
+    print:   { dots:"square",        corners:"square",       cornerDot:"square" } // print-safe also forces high contrast behavior via warning
+  };
+
+  var PREVIEW_SIZE = 230;
+
+  function buildOptions(size, forDownload){
+    var p = PRESETS[state.preset];
+    var bg = (forDownload && state.transparent) ? "rgba(0,0,0,0)" : state.bg;
+    var opts = {
+      width: size,
+      height: size,
+      type: "canvas",
+      data: state.url || DEFAULT_URL,
+      margin: Math.round(size * 0.04),            // enforced quiet zone
+      qrOptions: {
+        errorCorrectionLevel: state.logo ? "H" : (state.preset === "print" ? "Q" : "M")
+      },
+      dotsOptions: { color: state.fg, type: p.dots },
+      cornersSquareOptions: { color: state.fg, type: p.corners },
+      cornersDotOptions: { color: state.fg, type: p.cornerDot },
+      backgroundOptions: { color: bg }
+    };
+    if (state.logo){
+      opts.image = state.logo;
+      opts.imageOptions = {
+        crossOrigin: "anonymous",
+        margin: Math.round(size * 0.02),
+        imageSize: 0.28,
+        hideBackgroundDots: true
+      };
+    }
+    return opts;
+  }
+
+  var qr = new QRCodeStyling(buildOptions(PREVIEW_SIZE, false));
+  var previewEl = document.getElementById("qr-preview");
+  qr.append(previewEl);
+
+  function refresh(){
+    qr.update(buildOptions(PREVIEW_SIZE, false));
+    checkContrast();
+  }
+
+  /* ---------- contrast guard ---------- */
+  function luminance(hex){
+    var c = hex.replace("#","");
+    var r = parseInt(c.substr(0,2),16)/255, g = parseInt(c.substr(2,2),16)/255, b = parseInt(c.substr(4,2),16)/255;
+    var f = function(v){ return v <= 0.03928 ? v/12.92 : Math.pow((v+0.055)/1.055, 2.4); };
+    return 0.2126*f(r) + 0.7152*f(g) + 0.0722*f(b);
+  }
+  function checkContrast(){
+    var el = document.getElementById("contrast-warning");
+    var lf = luminance(state.fg), lb = luminance(state.bg);
+    var ratio = (Math.max(lf,lb)+0.05) / (Math.min(lf,lb)+0.05);
+    var msgs = [];
+    if (lf > lb){
+      msgs.push("<b>Light code on a dark background:</b> many phone cameras struggle with inverted codes. Consider swapping your colors.");
+    }
+    if (ratio < 4){
+      msgs.push("<b>Low contrast:</b> this color combination may not scan reliably, especially in print. Darken the code color or lighten the background.");
+    }
+    if (state.transparent){
+      msgs.push("<b>Transparent background:</b> make sure you place the code on a light surface in your design, and test-scan the final layout.");
+    }
+    if (msgs.length){
+      el.innerHTML = msgs.join("<br><br>");
+      el.classList.add("show");
+    } else {
+      el.classList.remove("show");
+    }
+  }
+
+  /* ---------- inputs ---------- */
+  document.getElementById("url-input").addEventListener("input", function(e){
+    state.url = e.target.value.trim();
+    refresh();
+  });
+
+  document.querySelectorAll(".preset").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      document.querySelectorAll(".preset").forEach(function(b){ b.classList.remove("active"); });
+      btn.classList.add("active");
+      state.preset = btn.dataset.preset;
+      if (state.preset === "print"){
+        state.fg = "#000000"; state.bg = "#ffffff";
+        document.getElementById("fg-color").value = "#000000";
+        document.getElementById("bg-color").value = "#ffffff";
+      }
+      refresh();
+    });
+  });
+
+  document.getElementById("fg-color").addEventListener("input", function(e){ state.fg = e.target.value; refresh(); });
+  document.getElementById("bg-color").addEventListener("input", function(e){ state.bg = e.target.value; refresh(); });
+
+  document.getElementById("swap-colors").addEventListener("click", function(){
+    var tmp = state.fg; state.fg = state.bg; state.bg = tmp;
+    document.getElementById("fg-color").value = state.fg;
+    document.getElementById("bg-color").value = state.bg;
+    refresh();
+  });
+
+  document.getElementById("logo-input").addEventListener("change", function(e){
+    var file = e.target.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function(ev){
+      state.logo = ev.target.result;
+      document.getElementById("logo-clear").style.display = "inline";
+      document.getElementById("logo-hint").innerHTML = "Logo added. Error correction raised to <b>High</b> so the code stays scannable.";
+      refresh();
+    };
+    reader.readAsDataURL(file);
+  });
+
+  document.getElementById("logo-clear").addEventListener("click", function(){
+    state.logo = null;
+    document.getElementById("logo-input").value = "";
+    this.style.display = "none";
+    document.getElementById("logo-hint").innerHTML = "PNG, JPG, or SVG. We automatically raise the code's error correction so the logo never breaks scanning.";
+    refresh();
+  });
+
+  document.getElementById("transparent-bg").addEventListener("change", function(e){
+    state.transparent = e.target.checked;
+    checkContrast();
+  });
+
+  /* ---------- downloads ---------- */
+  function fileName(){
+    var host = "qr-code";
+    try { host = new URL(state.url || DEFAULT_URL).hostname.replace(/^www\./,"").replace(/\./g,"-"); } catch(e){}
+    return "qr-" + host;
+  }
+
+  document.getElementById("dl-png").addEventListener("click", function(){
+    var size = parseInt(document.getElementById("png-size").value, 10);
+    var dl = new QRCodeStyling(buildOptions(size, true));
+    dl.download({ name: fileName(), extension: "png" });
+  });
+
+  document.getElementById("dl-svg").addEventListener("click", function(){
+    var opts = buildOptions(1000, true);
+    opts.type = "svg";
+    var dl = new QRCodeStyling(opts);
+    dl.download({ name: fileName(), extension: "svg" });
+  });
+
+  checkContrast();
+})();
+</script>
+</body>
+</html>
