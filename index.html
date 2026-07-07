@@ -303,6 +303,11 @@ footer{margin-top:80px;border-top:2px solid var(--ink);padding:30px 0 46px}
 .foot-links a.foot-donate{color:var(--accent);text-decoration:none;font-weight:700}
 .foot-links a.foot-donate:hover{text-decoration:underline}
 
+/* reset button */
+.reset-row{display:flex;justify-content:flex-end;margin-top:4px}
+.reset-btn{border:none;background:none;color:var(--ink-soft);font-size:12.5px;font-weight:600;cursor:pointer;padding:4px 2px;display:inline-flex;align-items:center;gap:5px;font-family:var(--sans)}
+.reset-btn:hover{color:var(--accent)}
+
 @media (max-width:820px){
   .print-cards{grid-template-columns:1fr}
   .usecases{grid-template-columns:1fr 1fr}
@@ -319,6 +324,17 @@ footer{margin-top:80px;border-top:2px solid var(--ink);padding:30px 0 46px}
 }
 @media (max-width:760px){
   .masthead nav{display:none}
+}
+@media (max-width:600px){
+  .wrap{padding:0 18px}
+  .hero{padding:30px 0 22px}
+  .hero h1{font-size:28px;line-height:1.15}
+  .hero p{font-size:16px;margin-top:14px}
+  .hero .badges{margin-top:16px}
+  .controls{padding:24px 20px}
+  .stage{padding:24px 20px 26px}
+  .edu h2{font-size:25px}
+  .support{padding:26px 20px}
 }
 </style>
 </head>
@@ -405,6 +421,10 @@ footer{margin-top:80px;border-top:2px solid var(--ink);padding:30px 0 46px}
           <button class="logo-clear" id="logo-clear" type="button" style="display:none">remove logo</button>
         </div>
         <p class="hint" id="logo-hint">PNG, JPG, or SVG. We automatically raise the code's error correction so the logo never breaks scanning. <a href="guides/qr-code-logo-size/" style="color:var(--accent-deep);font-weight:600">How big can a logo be?</a></p>
+      </div>
+
+      <div class="reset-row">
+        <button class="reset-btn" id="reset-btn" type="button">↺ Reset design</button>
       </div>
 
       <div class="warning" id="contrast-warning"></div>
@@ -749,11 +769,6 @@ footer{margin-top:80px;border-top:2px solid var(--ink);padding:30px 0 46px}
       document.querySelectorAll(".preset").forEach(function(b){ b.classList.remove("active"); });
       btn.classList.add("active");
       state.preset = btn.dataset.preset;
-      if (state.preset === "print"){
-        state.fg = "#000000"; state.bg = "#ffffff";
-        document.getElementById("fg-color").value = "#000000";
-        document.getElementById("bg-color").value = "#ffffff";
-      }
       refresh();
     });
   });
@@ -767,6 +782,8 @@ footer{margin-top:80px;border-top:2px solid var(--ink);padding:30px 0 46px}
     document.getElementById("bg-color").value = state.bg;
     refresh();
   });
+
+  var DEFAULT_LOGO_HINT = document.getElementById("logo-hint").innerHTML;
 
   document.getElementById("logo-input").addEventListener("change", function(e){
     var file = e.target.files[0];
@@ -785,13 +802,32 @@ footer{margin-top:80px;border-top:2px solid var(--ink);padding:30px 0 46px}
     state.logo = null;
     document.getElementById("logo-input").value = "";
     this.style.display = "none";
-    document.getElementById("logo-hint").innerHTML = "PNG, JPG, or SVG. We automatically raise the code's error correction so the logo never breaks scanning.";
+    document.getElementById("logo-hint").innerHTML = DEFAULT_LOGO_HINT;
     refresh();
   });
 
   document.getElementById("transparent-bg").addEventListener("change", function(e){
     state.transparent = e.target.checked;
     checkContrast();
+  });
+
+  /* ---------- reset design (keeps your link, clears the styling) ---------- */
+  document.getElementById("reset-btn").addEventListener("click", function(){
+    state.preset = "classic";
+    state.fg = "#1b1913";
+    state.bg = "#ffffff";
+    state.logo = null;
+    state.transparent = false;
+    document.querySelectorAll(".preset").forEach(function(b){
+      b.classList.toggle("active", b.dataset.preset === "classic");
+    });
+    document.getElementById("fg-color").value = state.fg;
+    document.getElementById("bg-color").value = state.bg;
+    document.getElementById("logo-input").value = "";
+    document.getElementById("logo-clear").style.display = "none";
+    document.getElementById("logo-hint").innerHTML = DEFAULT_LOGO_HINT;
+    document.getElementById("transparent-bg").checked = false;
+    refresh();
   });
 
   /* ---------- downloads ---------- */
