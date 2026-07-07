@@ -164,6 +164,8 @@ input[type="url"]:focus{outline:none;border-color:var(--ink)}
 #qr-preview canvas,#qr-preview svg{max-width:230px;max-height:230px;display:block}
 .scan-tip{font-size:13px;color:var(--ink-soft);text-align:center;max-width:240px}
 .scan-tip b{color:var(--ink)}
+.dl-note{font-size:13px;color:var(--ok);font-weight:600;text-align:center;margin-top:4px;opacity:0;transform:translateY(-3px);transition:opacity .2s,transform .2s;min-height:1px}
+.dl-note.show{opacity:1;transform:none}
 
 /* downloads */
 .dl-block{width:100%;max-width:280px}
@@ -406,7 +408,7 @@ footer{margin-top:80px;border-top:2px solid var(--ink);padding:30px 0 46px}
 
     <div class="stage">
       <div class="qr-frame"><div id="qr-preview"></div></div>
-      <p class="scan-tip"><b>Test it now:</b> point your phone camera at the preview. If it scans on screen, it will scan in print.</p>
+      <p class="scan-tip"><b>Go ahead, scan your own screen right now.</b> We'll wait. If it works here, it works in print.</p>
       <div class="dl-block">
         <div class="dl-row">
           <select id="png-size">
@@ -422,6 +424,7 @@ footer{margin-top:80px;border-top:2px solid var(--ink);padding:30px 0 46px}
           <input type="checkbox" id="transparent-bg">
           <label for="transparent-bg">Transparent background</label>
         </div>
+        <p class="dl-note" id="dl-note" aria-live="polite"></p>
       </div>
     </div>
   </div>
@@ -617,7 +620,7 @@ footer{margin-top:80px;border-top:2px solid var(--ink);padding:30px 0 46px}
       <span style="font-weight:600;color:var(--ink-soft)">Built by Bud Hennekes</span>
     </div>
   </div>
-  <div class="wrap foot-note">No cookies, no analytics, no accounts. Just a QR code that works.</div>
+  <div class="wrap foot-note">No cookies, no analytics, no accounts. We honestly have no idea who you are, and we like it that way.</div>
 </footer>
 
 <script src="qr-code-styling.js"></script>
@@ -747,7 +750,7 @@ footer{margin-top:80px;border-top:2px solid var(--ink);padding:30px 0 46px}
     reader.onload = function(ev){
       state.logo = ev.target.result;
       document.getElementById("logo-clear").style.display = "inline";
-      document.getElementById("logo-hint").innerHTML = "Logo added. Error correction raised to <b>High</b> so the code stays scannable.";
+      document.getElementById("logo-hint").innerHTML = "Logo added. Error correction bumped to <b>High</b> so the code can take the hit and still scan.";
       refresh();
     };
     reader.readAsDataURL(file);
@@ -773,10 +776,20 @@ footer{margin-top:80px;border-top:2px solid var(--ink);padding:30px 0 46px}
     return "qr-" + host;
   }
 
+  var noteTimer;
+  function showSaved(){
+    var note = document.getElementById("dl-note");
+    note.textContent = "Saved. Scan it once more before it goes to print.";
+    note.classList.add("show");
+    clearTimeout(noteTimer);
+    noteTimer = setTimeout(function(){ note.classList.remove("show"); }, 4500);
+  }
+
   document.getElementById("dl-png").addEventListener("click", function(){
     var size = parseInt(document.getElementById("png-size").value, 10);
     var dl = new QRCodeStyling(buildOptions(size, true));
     dl.download({ name: fileName(), extension: "png" });
+    showSaved();
   });
 
   document.getElementById("dl-svg").addEventListener("click", function(){
@@ -784,9 +797,13 @@ footer{margin-top:80px;border-top:2px solid var(--ink);padding:30px 0 46px}
     opts.type = "svg";
     var dl = new QRCodeStyling(opts);
     dl.download({ name: fileName(), extension: "svg" });
+    showSaved();
   });
 
   checkContrast();
+
+  console.log("%cQR Codes Made Easy", "font:600 16px sans-serif;color:#d84a1b");
+  console.log("Yep, it all runs right here in your browser. No server, no tracking, nothing phones home. Snoop all you like. — Bud");
 })();
 </script>
 </body>
