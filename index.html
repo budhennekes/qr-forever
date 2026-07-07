@@ -671,7 +671,9 @@ footer{margin-top:80px;border-top:2px solid var(--ink);padding:30px 0 46px}
 <script src="qr-code-styling.js"></script>
 <script>
 (function(){
-  var DEFAULT_URL = "https://yourbrand.com";
+  // The demo code (shown before you type your own) encodes a real, fun payoff,
+  // so scanning your own screen actually rewards you instead of hitting a fake URL.
+  var DEMO_TEXT = "You scanned it, and it works. It always will. Now type your own link up top and make it yours.";
 
   var state = {
     url: "",
@@ -698,7 +700,7 @@ footer{margin-top:80px;border-top:2px solid var(--ink);padding:30px 0 46px}
       width: size,
       height: size,
       type: "canvas",
-      data: state.url || DEFAULT_URL,
+      data: state.url || DEMO_TEXT,
       margin: Math.round(size * 0.04),            // enforced quiet zone
       qrOptions: {
         errorCorrectionLevel: state.logo ? "H" : (state.preset === "print" ? "Q" : "M")
@@ -833,7 +835,7 @@ footer{margin-top:80px;border-top:2px solid var(--ink);padding:30px 0 46px}
   /* ---------- downloads ---------- */
   function fileName(){
     var host = "qr-code";
-    try { host = new URL(state.url || DEFAULT_URL).hostname.replace(/^www\./,"").replace(/\./g,"-"); } catch(e){}
+    try { if (state.url) host = new URL(state.url).hostname.replace(/^www\./,"").replace(/\./g,"-"); } catch(e){}
     return "qr-" + host;
   }
 
