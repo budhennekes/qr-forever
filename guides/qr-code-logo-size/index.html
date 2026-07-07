@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Big Can a QR Code Logo Be? (I Decode-Tested It)</title>
+<meta name="description" content="A logo can cover about 15% of a QR code's area at error correction level H before it stops scanning, not the 30% everyone cites. I decode-tested every size.">
+<link rel="canonical" href="https://budhennekes.github.io/qr-forever/guides/qr-code-logo-size/">
+<meta name="author" content="Bud Hennekes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How Big Can a QR Code Logo Be? (I Decode-Tested It)">
+<meta property="og:description" content="The safe ceiling is about 15% of the code's area at level H, roughly half the number everyone repeats. Here's the tested data.">
+<meta property="og:url" content="https://budhennekes.github.io/qr-forever/guides/qr-code-logo-size/">
+<meta property="og:image" content="https://budhennekes.github.io/qr-forever/guides/qr-code-logo-size/logo-15pct-scans.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#faf6ef; --paper-deep:#f3ecdf; --ink:#1b1913; --ink-soft:#5c564a;
+  --line:#e0d7c5; --accent:#0c9463; --accent-deep:#0a7850; --ok:#2e6e4e;
+  --warn-bg:#fdf0e3; --warn-border:#e8b07a; --card:#ffffff; --radius:14px;
+  --serif:"Fraunces",Georgia,serif; --sans:"Public Sans",-apple-system,"Helvetica Neue",sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.65;font-size:16px}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+  background-image:radial-gradient(rgba(27,25,19,.035) 1px,transparent 1px);background-size:5px 5px}
+.wrap{max-width:760px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+
+/* header */
+header{padding:26px 0 0}
+.masthead{display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-bottom:2px solid var(--ink);padding-bottom:14px}
+.wordmark{font-family:var(--serif);font-weight:700;font-size:22px;letter-spacing:-.01em;text-decoration:none;color:var(--ink)}
+.wordmark .dot{color:var(--accent)}
+.masthead nav{font-size:13px;font-weight:600}
+.masthead nav a{color:var(--ink-soft);text-decoration:none;margin-left:18px}
+.masthead nav a:hover{color:var(--accent)}
+
+/* article */
+article{padding:34px 0 10px}
+.crumbs{font-size:13px;color:var(--ink-soft);margin-bottom:22px}
+.crumbs a{color:var(--ink-soft);text-decoration:none}
+.crumbs a:hover{color:var(--accent)}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+h1{font-family:var(--serif);font-weight:600;letter-spacing:-.02em;font-size:clamp(30px,4.6vw,44px);line-height:1.1;margin-bottom:14px}
+.byline{font-size:14px;color:var(--ink-soft);margin-bottom:26px;padding-bottom:22px;border-bottom:1px solid var(--line)}
+.byline b{color:var(--ink);font-weight:600}
+article h2{font-family:var(--serif);font-weight:600;font-size:26px;letter-spacing:-.01em;margin:38px 0 12px;line-height:1.2}
+article h3{font-size:18px;font-weight:700;margin:24px 0 8px}
+article p{margin:0 0 16px}
+article p a,article li a{color:var(--accent-deep);text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
+article ul,article ol{margin:0 0 18px;padding-left:22px}
+article li{margin:0 0 8px}
+strong{font-weight:700}
+
+/* lead answer box */
+.answer{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:var(--radius);padding:20px 22px;margin:0 0 26px;font-size:18px}
+.answer p{margin:0 0 10px}
+.answer p:last-child{margin:0}
+.answer .big{font-family:var(--serif);font-weight:600;font-size:20px;color:var(--ink)}
+
+/* TOC */
+.toc{background:var(--paper-deep);border:1px solid var(--line);border-radius:var(--radius);padding:16px 20px;margin:0 0 30px;font-size:14px}
+.toc b{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:8px}
+.toc a{color:var(--ink);text-decoration:none;display:inline}
+.toc a:hover{color:var(--accent)}
+.toc ol{margin:0;padding-left:18px}
+.toc li{margin:0 0 4px}
+
+/* data table */
+.tbl-wrap{overflow-x:auto;margin:0 0 10px}
+table{border-collapse:collapse;width:100%;font-size:15px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--line)}
+th{background:var(--paper-deep);font-weight:700;font-size:13px;letter-spacing:.02em}
+tr:last-child td{border-bottom:none}
+td.yes{color:var(--ok);font-weight:700}
+td.no{color:var(--accent-deep);font-weight:700}
+.caption{font-size:13px;color:var(--ink-soft);margin:0 0 26px;font-style:italic}
+
+/* sample grid */
+.samples{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:8px 0 8px}
+.sample{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:12px;text-align:center}
+.sample img{width:100%;height:auto;border-radius:8px;display:block}
+.sample .tag{font-size:13px;font-weight:700;margin-top:10px}
+.sample .tag.ok{color:var(--ok)}
+.sample .tag.bad{color:var(--accent-deep)}
+.sample .sub{font-size:12px;color:var(--ink-soft);margin-top:2px}
+@media(max-width:560px){.samples{grid-template-columns:1fr;max-width:300px;margin:8px auto}}
+
+/* callout */
+.note{background:var(--warn-bg);border:1px solid var(--warn-border);border-radius:var(--radius);padding:16px 20px;margin:0 0 24px;font-size:15px}
+.note b{color:var(--accent-deep)}
+
+/* faq */
+.faq{margin-top:10px}
+.faq details{border-bottom:1px solid var(--line);padding:14px 0}
+.faq summary{font-weight:700;cursor:pointer;font-size:17px;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{content:"+";color:var(--accent);font-weight:700;margin-right:10px}
+.faq details[open] summary::before{content:"–"}
+.faq details p{margin:12px 0 0;color:var(--ink-soft)}
+
+/* cta */
+.cta{background:var(--ink);color:var(--paper);border-radius:var(--radius);padding:26px 26px;margin:36px 0 10px;text-align:center}
+.cta h2{font-family:var(--serif);color:var(--paper);margin:0 0 8px;font-size:24px}
+.cta p{color:#cfc7b8;margin:0 0 16px;font-size:15px}
+.cta a.btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;font-weight:700;padding:11px 22px;border-radius:999px;font-size:15px}
+.cta a.btn:hover{background:var(--accent-deep)}
+
+/* footer */
+footer{border-top:2px solid var(--ink);margin-top:44px;padding:28px 0 40px}
+.foot-grid{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.foot-left{max-width:420px}
+.foot-left p{font-size:13px;color:var(--ink-soft);margin-top:8px}
+.foot-links{display:flex;flex-direction:column;gap:8px;font-size:13px;text-align:right}
+.foot-links a{color:var(--accent);text-decoration:none;font-weight:600}
+.foot-note{font-size:12px;color:var(--ink-soft);margin-top:20px}
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <div class="masthead">
+    <a class="wordmark" href="../../">QR Codes Made Easy<span class="dot">.</span></a>
+    <nav>
+      <a href="../../">The tool</a>
+      <a href="../../#checklist">Print checklist</a>
+      <a href="../../#faq">FAQ</a>
+      <a href="../../#support" style="color:var(--accent)">♥ Tip</a>
+    </nav>
+  </div>
+</header>
+
+<article class="wrap">
+  <div class="crumbs"><a href="../../">Home</a> / <a href="../">Guides</a> / How big can a QR code logo be?</div>
+  <div class="eyebrow">Tested, not guessed</div>
+  <h1>How big can a QR code logo be before it stops scanning?</h1>
+  <div class="byline">By <b>Bud Hennekes</b>, who built <a href="../../">QR Codes Made Easy</a> and decode-tested this. Published July 5, 2026.</div>
+
+  <div class="answer">
+    <p class="big">A centered logo can cover about <strong>15% of a QR code's area</strong> at error correction level H before it stops scanning reliably. That is roughly half the "20 to 30%" you read everywhere else.</p>
+    <p>I know because I generated codes at every logo size and decoded them until they broke. Below level H you get far less room. And the "logo size" number your generator shows you is almost never the percentage of the code your logo actually covers, which is a big part of why people get this wrong.</p>
+  </div>
+
+  <div class="toc">
+    <b>What's here</b>
+    <ol>
+      <li><a href="#tested">What I actually measured</a></li>
+      <li><a href="#why-30-wrong">Why the "30%" number is wrong</a></li>
+      <li><a href="#slider-trap">The trap in the "logo size" slider</a></li>
+      <li><a href="#how-to">How to add a logo without breaking the scan</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ol>
+  </div>
+
+  <h2 id="tested">What I actually measured</h2>
+  <p>Most pages that answer this repeat a number ("keep it under 20%," "level H lets you cover 30%") without ever testing it. So I tested it. I generated QR codes for a typical link, dropped a solid centered logo on each one at increasing sizes, and fed every result through two separate decoders (the zxing engine that most phone cameras are built on, plus OpenCV as a stricter second opinion). A size "passes" only if both decoders read the original link back.</p>
+  <p>Here is a typical branded link (around 30 characters, a version 2 code) at error correction level H, the highest setting and the one you should always use with a logo:</p>
+
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>Logo covers this % of the code's area</th><th>Still scans?</th></tr></thead>
+    <tbody>
+      <tr><td>8% <span style="color:var(--ink-soft)">(what most tools default to)</span></td><td class="yes">Yes</td></tr>
+      <tr><td>12%</td><td class="yes">Yes</td></tr>
+      <tr><td>15%</td><td class="yes">Yes, this is the edge</td></tr>
+      <tr><td>18%</td><td class="yes">Yes, barely</td></tr>
+      <tr><td>20%</td><td class="no">No</td></tr>
+      <tr><td>25%</td><td class="no">No</td></tr>
+      <tr><td>30% <span style="color:var(--ink-soft)">(the number everyone cites)</span></td><td class="no">No</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="caption">Centered logo, level H, ~30-character link. The last size that scanned was 18%; 20% and up failed on both decoders. I treat 15% as the safe ceiling for print, where you don't get a second try.</p>
+
+  <p>You can see it clearly with three codes. All three point to the same link. The only difference is logo size:</p>
+  <div class="samples">
+    <div class="sample">
+      <img src="logo-8pct-scans.png" alt="QR code with a small logo covering 8 percent of the area, scans fine" width="460" height="460">
+      <div class="tag ok">Scans</div>
+      <div class="sub">8% of the area</div>
+    </div>
+    <div class="sample">
+      <img src="logo-15pct-scans.png" alt="QR code with a medium logo covering 15 percent of the area, still scans" width="460" height="460">
+      <div class="tag ok">Scans</div>
+      <div class="sub">15%, the edge</div>
+    </div>
+    <div class="sample">
+      <img src="logo-25pct-fails.png" alt="QR code with a large logo covering 25 percent of the area, fails to scan" width="460" height="460">
+      <div class="tag bad">Fails</div>
+      <div class="sub">25% of the area</div>
+    </div>
+  </div>
+  <p class="caption">The middle code and the right code look only a little different. One scans, one doesn't. That gap is why you test before you print.</p>
+
+  <p>Two more things fell out of the test that matter:</p>
+  <ul>
+    <li><strong>Level H is the only setting worth using with a logo.</strong> On the same link, error correction Q and M topped out around 12% coverage, and level L failed with a logo of almost any size. If your generator lets you pick a level, pick H.</li>
+    <li><strong>Denser codes give you less room.</strong> A longer URL builds a bigger, busier code, and the safe logo size shifts with it. The 15% ceiling assumes a short, clean link. Long links, tracking parameters, and vCards all shrink it.</li>
+  </ul>
+
+  <h2 id="why-30-wrong">Why the "30%" number is wrong</h2>
+  <p>The "you can cover 30%" claim comes from a real fact told sloppily. Error correction level H can rebuild about 30% of a QR code's <em>data</em> if it gets damaged. People hear "30%" and assume that means a logo can cover 30% of the code. It doesn't, for two reasons.</p>
+  <p>First, error correction only protects the <strong>data</strong> area. It does nothing for the three big squares in the corners, the dotted lines between them, or the smaller alignment square. Those are the patterns a scanner uses to find and lock onto the code in the first place. A logo that grows into any of them kills the scan instantly, no matter what level you picked. On a small code, a centered logo reaches them faster than you'd think.</p>
+  <p>Second, that 30% assumes damage is <strong>spread out</strong>, like scratches and coffee stains scattered across the whole code. A logo is the opposite: it wipes out one solid block in the middle. Denso Wave, the company that invented the QR code, says this directly in its own documentation, noting the recovery rate assumes damage "distributed across the total codewords rather than concentrated in specific areas." A centered logo is concentrated damage, so it eats into your margin far faster than the flat percentage suggests. That is why the tested ceiling lands near 15%, not 30%.</p>
+
+  <h2 id="slider-trap">The trap in the "logo size" slider</h2>
+  <p>Here's the part almost nobody explains. When a QR generator shows you a "logo size" of 0.4 or 40%, that is usually <strong>not</strong> the share of the code your logo covers.</p>
+  <p>Take qr-code-styling, one of the most widely used open-source QR libraries. In its code, the logo area works out to <code>imageSize &times; the error correction percentage</code>. So a "logo size" of 0.4 at level Q (25%) actually covers about 10% of the code's area, not 40%. The slider is measured against your error correction budget, not the code.</p>
+  <p>The other half of the confusion is width versus area. People eyeball a logo by its width, but scanning depends on area, and area grows with the square of width. A logo whose <em>width</em> spans 40% of the code covers only about 16% of its <em>area</em>. So "my logo looks like it takes up 40%" and "keep it under 15%" can both be true. They're measuring different things.</p>
+  <div class="note"><b>The practical rule:</b> keep your logo's width under about 40% of the code's width (that's roughly 15% of the area) and use level H. That's the whole rule.</div>
+  <p>This is why <a href="../../">QR Codes Made Easy</a> caps the logo at a width of about 28% and forces level H automatically. That works out to around 8% of the area, deliberately on the safe side of the line, because a code you print is a code you can't take back.</p>
+
+  <h2 id="how-to">How to add a logo without breaking the scan</h2>
+  <ol>
+    <li><strong>Use error correction level H.</strong> It's the only level with enough margin to spare for a logo. Any decent generator, including the <a href="../../">free QR Codes Made Easy generator</a>, will let you set it, and some switch to it for you the moment you add an image.</li>
+    <li><strong>Keep the logo small.</strong> Width under ~40% of the code, which lands you near 15% of the area or less. When in doubt, smaller. A logo people can't scan isn't branding, it's a dead square.</li>
+    <li><strong>Center it and give it a white pad.</strong> A logo sitting on a small white background (a "knockout") keeps its edges from blurring into the code's dots. Centering keeps it away from the corner patterns.</li>
+    <li><strong>Keep strong contrast and a clear border.</strong> Dark code on a light background, and leave the quiet zone (the empty margin, about four dots wide) alone. Contrast and the border matter as much as logo size.</li>
+    <li><strong>Test before you print.</strong> Scan the finished file with two different phones, one iPhone and one Android, from the distance people will really use. This is the last step on the <a href="../../#checklist">pre-print checklist</a>, and it's the one that saves the reprint.</li>
+  </ol>
+  <p>That covers the scan. The rest of getting a code printed well, where to place it, how big to make it on each surface, and the contrast rules that survive real ink, is what I'm putting in <a href="../../#guide">the Brand Field Guide to QR Codes</a>.</p>
+
+  <h2 id="faq">FAQ</h2>
+  <div class="faq">
+    <details><summary>How much of a QR code can a logo cover?</summary>
+      <p>About 15% of its area at error correction level H, based on decoding codes at every size until they failed. That's a safe ceiling for print. You can sometimes push to ~18%, but the margin gets thin and depends on how much data the code holds. Below level H, you get far less room.</p></details>
+    <details><summary>What error correction level should I use for a QR code with a logo?</summary>
+      <p>Level H, every time. It's the highest of the four levels (L, M, Q, H) and the only one with enough spare capacity to survive a logo covering part of the code. On my tests, levels M and Q topped out near 12% coverage and L failed with almost any logo.</p></details>
+    <details><summary>What happens if the logo is too big?</summary>
+      <p>The code stops scanning. It usually doesn't get "slower," it just fails, because the logo either erases more data than error correction can rebuild or grows into the corner and timing patterns a scanner needs to lock onto the code. The jump from "works" to "dead" is small, which is why testing matters.</p></details>
+    <details><summary>Does putting a logo in the middle affect scanning?</summary>
+      <p>Yes, but the middle is the safest place for it. A centered logo stays away from the three corner squares and the alignment square, which are the patterns error correction can't protect. Keep it centered and keep it small.</p></details>
+    <details><summary>Can I put any logo on a QR code?</summary>
+      <p>Mostly, if you keep it small and high contrast. A simple, solid logo on a white pad works best. Thin lines, low contrast, or a logo that fades into the code's dots will hurt scanning more than a bold, compact mark of the same size.</p></details>
+    <details><summary>How do I test that my QR code still scans?</summary>
+      <p>Open the exported file at full size and scan it with two phones, one iPhone and one Android, from the distance your audience will use. Test the actual file you're sending to print, not the preview. If both phones read it instantly, you're good.</p></details>
+  </div>
+
+  <div class="cta">
+    <h2>Make one that scans</h2>
+    <p>QR Codes Made Easy caps the logo at a safe size and uses level H for you. Free, no account, and the code never expires.</p>
+    <a class="btn" href="../../">Build your brand QR code</a>
+  </div>
+</article>
+
+<footer>
+<div class="wrap foot-grid">
+<div class="foot-left">
+<a class="wordmark" href="../../">QR Codes Made Easy<span class="dot">.</span></a>
+<p>Codes generated in your browser. They never expire. I never see your data. Built to make a point, free to keep it honest.</p>
+</div>
+<div class="foot-links">
+<a href="https://www.paypal.com/paypalme/aboundlessworld" target="_blank" rel="noopener">♥ Tip the developer</a>
+<span style="font-weight:600;color:var(--ink-soft)">Built by Bud Hennekes</span>
+</div>
+</div>
+<div class="wrap foot-note">No cookies, no analytics, no accounts. Just a QR code that works.</div>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "How big can a QR code logo be before it stops scanning?",
+  "description": "A centered logo can cover about 15% of a QR code's area at error correction level H before it stops scanning, roughly half the commonly cited 30%. Based on first-hand decode testing.",
+  "image": "https://budhennekes.github.io/qr-forever/guides/qr-code-logo-size/logo-15pct-scans.png",
+  "datePublished": "2026-07-05",
+  "dateModified": "2026-07-05",
+  "author": {"@type": "Person", "name": "Bud Hennekes", "url": "https://budhennekes.github.io/qr-forever/"},
+  "publisher": {"@type": "Organization", "name": "QR Codes Made Easy", "url": "https://budhennekes.github.io/qr-forever/"},
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "https://budhennekes.github.io/qr-forever/guides/qr-code-logo-size/"}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://budhennekes.github.io/qr-forever/"},
+    {"@type": "ListItem", "position": 2, "name": "Guides", "item": "https://budhennekes.github.io/qr-forever/guides/"},
+    {"@type": "ListItem", "position": 3, "name": "How big can a QR code logo be?", "item": "https://budhennekes.github.io/qr-forever/guides/qr-code-logo-size/"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "How much of a QR code can a logo cover?", "acceptedAnswer": {"@type": "Answer", "text": "About 15% of its area at error correction level H, based on decoding codes at every size until they failed. That is a safe ceiling for print. You can sometimes push to about 18%, but the margin gets thin and depends on how much data the code holds. Below level H you get far less room."}},
+    {"@type": "Question", "name": "What error correction level should I use for a QR code with a logo?", "acceptedAnswer": {"@type": "Answer", "text": "Level H, every time. It is the highest of the four levels (L, M, Q, H) and the only one with enough spare capacity to survive a logo covering part of the code. In testing, levels M and Q topped out near 12% coverage and L failed with almost any logo."}},
+    {"@type": "Question", "name": "What happens if the logo is too big?", "acceptedAnswer": {"@type": "Answer", "text": "The code stops scanning. It usually does not get slower, it just fails, because the logo either erases more data than error correction can rebuild or grows into the corner and timing patterns a scanner needs to lock onto the code."}},
+    {"@type": "Question", "name": "Does putting a logo in the middle affect scanning?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, but the middle is the safest place for it. A centered logo stays away from the three corner squares and the alignment square, which are the patterns error correction cannot protect. Keep it centered and keep it small."}},
+    {"@type": "Question", "name": "Can I put any logo on a QR code?", "acceptedAnswer": {"@type": "Answer", "text": "Mostly, if you keep it small and high contrast. A simple, solid logo on a white pad works best. Thin lines, low contrast, or a logo that fades into the code's dots will hurt scanning more than a bold, compact mark of the same size."}},
+    {"@type": "Question", "name": "How do I test that my QR code still scans?", "acceptedAnswer": {"@type": "Answer", "text": "Open the exported file at full size and scan it with two phones, one iPhone and one Android, from the distance your audience will use. Test the actual file you are sending to print, not the preview."}}
+  ]
+}
+</script>
+</body>
+</html>
