@@ -2,7 +2,7 @@
 
 Make a QR code in your brand colors, with your logo, and print it knowing nobody can ever turn it off.
 
-**[Try it live](https://qrcodesmadeeasy.com/)**
+**[Try it live](https://qrcodemadeeasy.com/)**
 
 ## Why this exists
 
@@ -20,7 +20,7 @@ QR Codes Made Easy only makes static codes. Your link is encoded directly into t
 
 ## Getting started
 
-Open [the app](https://qrcodesmadeeasy.com/), paste your link, pick a style, download. Before you print, test-scan the file with two phones. The full print checklist is on the page.
+Open [the app](https://qrcodemadeeasy.com/), paste your link, pick a style, download. Before you print, test-scan the file with two phones. The full print checklist is on the page.
 
 ## Under the hood
 
