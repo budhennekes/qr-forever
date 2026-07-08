@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Track QR Code Scans Without a Subscription</title>
+<meta name="description" content="Track QR code scans for free with UTM tags and Google Analytics. No dynamic code, no monthly fee. The exact step-by-step setup, plus the honest tradeoffs.">
+<link rel="canonical" href="https://qrcodemadeeasy.com/guides/track-qr-code-scans-without-subscription/">
+<meta name="author" content="Bud Hennekes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Track QR Code Scans Without a Subscription">
+<meta property="og:description" content="Track QR code scans for free with UTM tags and Google Analytics. No dynamic code, no monthly fee. The exact step-by-step setup, plus the honest tradeoffs.">
+<meta property="og:url" content="https://qrcodemadeeasy.com/guides/track-qr-code-scans-without-subscription/">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#faf6ef; --paper-deep:#f3ecdf; --ink:#1b1913; --ink-soft:#5c564a;
+  --line:#e0d7c5; --accent:#0c9463; --accent-deep:#0a7850; --ok:#2e6e4e;
+  --warn-bg:#fdf0e3; --warn-border:#e8b07a; --card:#ffffff; --radius:14px;
+  --serif:"Fraunces",Georgia,serif; --sans:"Public Sans",-apple-system,"Helvetica Neue",sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.65;font-size:16px}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+  background-image:radial-gradient(rgba(27,25,19,.035) 1px,transparent 1px);background-size:5px 5px}
+.wrap{max-width:760px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+header{padding:26px 0 0}
+.masthead{display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-bottom:2px solid var(--ink);padding-bottom:14px}
+.wordmark{font-family:var(--serif);font-weight:700;font-size:22px;letter-spacing:-.01em;text-decoration:none;color:var(--ink)}
+.wordmark .dot{color:var(--accent)}
+.masthead nav{font-size:13px;font-weight:600}
+.masthead nav a{color:var(--ink-soft);text-decoration:none;margin-left:18px}
+.masthead nav a:hover{color:var(--accent)}
+article{padding:34px 0 10px}
+.crumbs{font-size:13px;color:var(--ink-soft);margin-bottom:22px}
+.crumbs a{color:var(--ink-soft);text-decoration:none}
+.crumbs a:hover{color:var(--accent)}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+h1{font-family:var(--serif);font-weight:600;letter-spacing:-.02em;font-size:clamp(30px,4.6vw,44px);line-height:1.1;margin-bottom:14px}
+.byline{font-size:14px;color:var(--ink-soft);margin-bottom:26px;padding-bottom:22px;border-bottom:1px solid var(--line)}
+.byline b{color:var(--ink);font-weight:600}
+article h2{font-family:var(--serif);font-weight:600;font-size:26px;letter-spacing:-.01em;margin:38px 0 12px;line-height:1.2}
+article h3{font-size:18px;font-weight:700;margin:24px 0 8px}
+article p{margin:0 0 16px}
+article p a,article li a{color:var(--accent-deep);text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
+article ul,article ol{margin:0 0 18px;padding-left:22px}
+article li{margin:0 0 8px}
+strong{font-weight:700}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;background:var(--paper-deep);border:1px solid var(--line);border-radius:5px;padding:1px 5px;overflow-wrap:anywhere}
+.tbl-wrap{overflow-x:auto;margin:0 0 24px}
+table{border-collapse:collapse;width:100%;font-size:15px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--paper-deep);font-weight:700;font-size:13px}
+tr:last-child td{border-bottom:none}
+.answer{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:var(--radius);padding:20px 22px;margin:0 0 26px;font-size:18px}
+.answer p{margin:0 0 10px}
+.answer p:last-child{margin:0}
+.answer .big{font-family:var(--serif);font-weight:600;font-size:20px;color:var(--ink);line-height:1.4}
+.toc{background:var(--paper-deep);border:1px solid var(--line);border-radius:var(--radius);padding:16px 20px;margin:0 0 30px;font-size:14px}
+.toc b{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:8px}
+.toc a{color:var(--ink);text-decoration:none;display:inline}
+.toc a:hover{color:var(--accent)}
+.toc ol{margin:0;padding-left:18px}
+.toc li{margin:0 0 4px}
+.note{background:var(--warn-bg);border:1px solid var(--warn-border);border-radius:var(--radius);padding:16px 20px;margin:0 0 24px;font-size:15px}
+.note b{color:var(--accent-deep)}
+.faq{margin-top:10px}
+.faq details{border-bottom:1px solid var(--line);padding:14px 0}
+.faq summary{font-weight:700;cursor:pointer;font-size:17px;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{content:"+";color:var(--accent);font-weight:700;margin-right:10px}
+.faq details[open] summary::before{content:"\2013"}
+.faq details p{margin:12px 0 0;color:var(--ink-soft)}
+.cta{background:var(--ink);color:var(--paper);border-radius:var(--radius);padding:26px 26px;margin:36px 0 10px;text-align:center}
+.cta h2{font-family:var(--serif);color:var(--paper);margin:0 0 8px;font-size:24px}
+.cta p{color:#cfc7b8;margin:0 0 16px;font-size:15px}
+.cta a.btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;font-weight:700;padding:11px 22px;border-radius:999px;font-size:15px}
+.cta a.btn:hover{background:var(--accent-deep)}
+footer{border-top:2px solid var(--ink);margin-top:44px;padding:28px 0 40px}
+.foot-grid{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.foot-left{max-width:420px}
+.foot-left p{font-size:13px;color:var(--ink-soft);margin-top:8px}
+.foot-links{display:flex;flex-direction:column;gap:8px;font-size:13px;text-align:right}
+.foot-links a{color:var(--accent);text-decoration:none;font-weight:600}
+.foot-note{font-size:12px;color:var(--ink-soft);margin-top:20px}
+</style>
+</head>
+<body>
+<header class="wrap">
+  <div class="masthead">
+    <a class="wordmark" href="../../">QR Codes Made Easy<span class="dot">.</span></a>
+    <nav>
+      <a href="../../">The tool</a>
+      <a href="../">Guides</a>
+      <a href="../../#faq">FAQ</a>
+      <a href="../../#support" style="color:var(--accent)">&#9829; Tip</a>
+    </nav>
+  </div>
+</header>
+<article class="wrap">
+  <div class="crumbs"><a href="../../">Home</a> / <a href="../">Guides</a> / Track QR scans without a subscription</div>
+  <div class="eyebrow">Tracking</div>
+  <h1>How to Track QR Code Scans Without a Subscription</h1>
+  <div class="byline">By <b>Bud Hennekes</b>, who built <a href="../../">QR Codes Made Easy</a>. Updated July 2026.</div>
+  <div class="answer"><p class="big">You do not need a paid dynamic QR service to know your scans are working. Add UTM parameters to your link, put that tagged link into a static QR code, and read the scan-driven visits in the analytics you already run.</p></div>
+  <div class="toc"><b>What's here</b><ol><li><a href="#what-free-tracking-means">What free scan tracking actually measures</a></li><li><a href="#step-by-step">Step by step: tag the link, then make the code</a></li><li><a href="#read-in-ga4">Read your scans in Google Analytics 4</a></li><li><a href="#tradeoffs">The honest tradeoffs of the free method</a></li><li><a href="#static-vs-dynamic">Static vs dynamic: which should you use</a></li></ol></div>
+  <p>Somewhere along the way, QR codes got turned into a subscription. You generate a code, print it on a flyer, and six months later the vendor emails you: your plan lapsed, your code is dead, pay up. I built a free tool because that bothered me. This guide is the other half of the story, which is how to track your scans without renting anything.</p>
+<p>The part paid services would rather you not notice: the scan tracking you actually care about is something you can run yourself, for free, with tools you probably already have.</p>
+
+<h2 id="what-free-tracking-means">What free scan tracking actually measures</h2>
+<p>Here is the honest version up front. A <strong>dynamic QR code</strong> counts scans at a redirect server it runs through. Every time a phone opens the code, the vendor's server logs a hit before sending the person on to your page. That redirect is what you are paying for.</p>
+<p>The free method measures something slightly different, and usually more useful: the <strong>visits a scan produced</strong>. You tag your link so your own analytics can tell a QR visit apart from every other visit. When someone scans your code and lands on the page, that visit drops into a bucket you named. You see how many people scanned, then actually arrived.</p>
+<p>For most real goals (did the flyer work, did anyone open the menu, which table tent pulled better), that is the number that matters. A raw camera-open that never loads your page was not doing anything for you anyway.</p>
+
+<h2 id="step-by-step">Step by step: tag the link, then make the code</h2>
+<p>The whole method is five steps. It takes about ten minutes the first time and two minutes after that.</p>
+<ol>
+<li><strong>Start with your destination URL.</strong> This is the page you want people to land on: a menu, a signup form, a product page. Example: <code>https://yoursite.com/menu</code>.</li>
+<li><strong>Add UTM parameters to that URL.</strong> UTM tags are just labels you bolt onto the end of a link. Google Analytics reads them and files the visit under the source, medium, and campaign you chose. You add them by hand: a <code>?</code> after the URL, then each label joined with <code>&amp;</code>. Definitions are in the table below.</li>
+<li><strong>Put the tagged URL into a static QR code.</strong> Paste the full tagged link into <a href="../../">the generator and make the static code for your tracked link</a>. Static means the link is baked into the pattern itself, so there is no redirect server, no account, and nothing to expire. Download the PNG or SVG.</li>
+<li><strong>Print it.</strong> Put it on the flyer, the sign, the table tent, the packaging. If you are sizing it for print, check a <a href="../how-big-should-a-qr-code-be-for-print/">guide to the right QR print size</a> so it scans from where people actually stand.</li>
+<li><strong>Read the results in Google Analytics.</strong> Filter by the source and medium you set, covered in the next section.</li>
+</ol>
+<p>Here are the parameters in plain language. These names come straight from Google's own campaign URL documentation.</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Parameter</th><th>What to put</th><th>What it means</th></tr></thead>
+<tbody>
+<tr><td><code>utm_source</code></td><td><code>qr</code></td><td>Where the visit came from. Use <code>qr</code> so every scan groups together.</td></tr>
+<tr><td><code>utm_medium</code></td><td><code>print</code></td><td>The kind of surface. Use <code>print</code>, or get specific: <code>flyer</code>, <code>poster</code>, <code>packaging</code>.</td></tr>
+<tr><td><code>utm_campaign</code></td><td><code>spring-menu</code></td><td>The specific push this code belongs to, so you can compare one campaign against another.</td></tr>
+<tr><td><code>utm_content</code></td><td><code>table-tent</code></td><td>Optional. Which version of the thing, so you can tell two flyers apart.</td></tr>
+</tbody>
+</table></div>
+<p>Put those together and you get one tagged link. Copy this and swap in your own values:</p>
+<p><code>https://yoursite.com/menu?utm_source=qr&amp;utm_medium=print&amp;utm_campaign=spring-menu&amp;utm_content=table-tent</code></p>
+<p>Keep everything lowercase and use hyphens instead of spaces. Google files <code>Print</code> and <code>print</code> as two separate buckets, which splits your numbers for no reason. A real example: say I print table tents for a coffee shop's spring menu. I tag the link like the one above, make a static code, and put it on every table. Two weeks later I can see how many people scanned and loaded the menu, and if some tents used <code>utm_content=window-decal</code> instead, which spot pulled better.</p>
+
+<h2 id="read-in-ga4">Read your scans in Google Analytics 4</h2>
+<p>Once the tagged link is live and people start scanning, the visits land in GA4. Here is where to look.</p>
+<ol>
+<li>Open GA4 and go to <strong>Reports</strong>, then <strong>Acquisition</strong>, then <strong>Traffic acquisition</strong>.</li>
+<li>This report is built on <strong>session source / medium</strong>, which is exactly what your UTM tags feed. Set the table's primary dimension to <strong>Session source / medium</strong>.</li>
+<li>Find the row that reads <code>qr / print</code> (or whatever source and medium you chose). That row is your scans that turned into visits.</li>
+<li>Want to compare flyers or campaigns? Switch the dimension to <strong>Session campaign</strong>, or add it as a secondary dimension, to break it down further.</li>
+</ol>
+<p>Google's documentation confirms these tags show up in the Traffic acquisition report under Session source, Session medium, and Session campaign. So this is not a workaround. It is the path the report was built for. Give it a little time after your first scans, since data can take up to a day to settle.</p>
+<p><strong>The other free option:</strong> point the code at a page you fully control, like <code>yoursite.com/menu</code>, and read that page's own analytics or server logs. If you run your own site, the server already records every hit to that URL. A jump in visits to a page that is only reachable by scanning the code is your scan count, with no third party in the middle.</p>
+
+<h2 id="tradeoffs">The honest tradeoffs of the free method</h2>
+<p>I am not going to pretend this is free with no strings. Two things you should know going in.</p>
+<p><strong>It counts visits, not raw camera opens.</strong> The person needs an internet connection and has to actually land on the page for the visit to register. If someone points a camera and closes it before the page loads, that one does not show up. In practice the gap is small, and people who bail before the page loads were not going to convert anyway. But if you need a literal tally of every camera that ever pointed at the code, only a redirect-based dynamic code can give you that.</p>
+<p><strong>A static code's destination is fixed once printed.</strong> The link lives inside the pattern, so you cannot change where a printed code points. Two clean ways around this: point it at a URL you are confident stays put, or point it at a page you control (like <code>yoursite.com/menu</code>) and change the contents of that page whenever you want. The code stays the same. The page behind it changes.</p>
+
+<h2 id="static-vs-dynamic">Static vs dynamic: which should you use</h2>
+<p>Let me be fair to dynamic codes, because they do buy you two real things. You can edit the destination after printing, and you get scan counts in a built-in dashboard without touching analytics.</p>
+<p>The cost is the part nobody flags at signup. Both features run through the vendor's server, which means a monthly fee, and if you stop paying, the code can stop working. Your printed flyer points at their server, not your page. When the plan lapses, <a href="../do-qr-codes-expire/">a dynamic code can expire even though the pattern is printed forever</a>. You end up renting your own codes.</p>
+<p>The free method flips that. The destination is baked into a code that belongs to you and never expires, and the tracking runs on analytics you own. The trade is that you set it up once by hand instead of clicking a button, and you edit a page instead of editing the code.</p>
+<p>My rule: if you truly need to re-point a code after it is printed, or you need a raw scan tally down to the camera-open, pay for a dynamic code and go in with your eyes open. For everything else (flyers, menus, signs, packaging, events) tag your link, make a static code, and keep tracking you actually own.</p>
+  <h2 id="faq">FAQ</h2>
+  <div class="faq"><details><summary>Can you track a QR code for free?</summary><p>Yes. Add UTM parameters to your destination link, put that tagged link in a static QR code, and read the scan-driven visits in Google Analytics or your own server logs. No subscription, no dynamic code.</p></details><details><summary>How do I know if my QR code was scanned?</summary><p>In GA4, open Reports, then Acquisition, then Traffic acquisition, and look for the row matching the source and medium you tagged (for example qr / print). That row shows how many scans turned into visits.</p></details><details><summary>Do static QR codes have analytics?</summary><p>The code itself does not count anything. It just holds a link. You get analytics by tagging that link with UTM parameters, so the visits it sends show up in the analytics you already run.</p></details><details><summary>What is a UTM parameter?</summary><p>It is a small label added to the end of a URL that tells your analytics where a visit came from. utm_source, utm_medium, and utm_campaign are the three main ones. Google reads them and files each visit accordingly.</p></details><details><summary>Can I track QR scans without an app?</summary><p>Yes. This method needs no app on your phone and no app for the person scanning. The tracking happens in your web analytics after they land on the page.</p></details><details><summary>Will my static QR code stop working if I stop paying?</summary><p>No. There is nothing to pay for. A static code encodes the destination directly in the pattern, so it keeps working with no server and no account behind it. The expiration risk belongs to dynamic codes that route through a paid redirect.</p></details></div>
+  <div class="cta">
+    <h2>Make the static code for your tracked link</h2>
+    <p>Paste your UTM link into QR Codes Made Easy for a static code that never expires. Free, no account.</p>
+    <a class="btn" href="../../">Build your QR code</a>
+  </div>
+</article>
+<footer>
+<div class="wrap foot-grid">
+<div class="foot-left">
+<a class="wordmark" href="../../">QR Codes Made Easy<span class="dot">.</span></a>
+<p>Codes generated in your browser. They never expire. We never see your data. Built to make a point, free to keep it honest.</p>
+</div>
+<div class="foot-links">
+<a href="../">All guides</a>
+<a href="https://www.paypal.com/paypalme/aboundlessworld" target="_blank" rel="noopener">&#9829; Tip the developer</a>
+<span style="font-weight:600;color:var(--ink-soft)">Built by Bud Hennekes</span>
+</div>
+</div>
+<div class="wrap foot-note">No cookies, no ad trackers, no accounts. Just a QR code that works.</div>
+</footer>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "How to Track QR Code Scans Without a Subscription", "description": "Track QR code scans for free with UTM tags and Google Analytics. No dynamic code, no monthly fee. The exact step-by-step setup, plus the honest tradeoffs.", "datePublished": "2026-07-07", "dateModified": "2026-07-07", "author": {"@type": "Person", "name": "Bud Hennekes", "url": "https://qrcodemadeeasy.com/"}, "publisher": {"@type": "Organization", "name": "QR Codes Made Easy", "url": "https://qrcodemadeeasy.com/"}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://qrcodemadeeasy.com/guides/track-qr-code-scans-without-subscription/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://qrcodemadeeasy.com/"}, {"@type": "ListItem", "position": 2, "name": "Guides", "item": "https://qrcodemadeeasy.com/guides/"}, {"@type": "ListItem", "position": 3, "name": "Track QR scans without a subscription", "item": "https://qrcodemadeeasy.com/guides/track-qr-code-scans-without-subscription/"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Can you track a QR code for free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Add UTM parameters to your destination link, put that tagged link in a static QR code, and read the scan-driven visits in Google Analytics or your own server logs. No subscription, no dynamic code."}}, {"@type": "Question", "name": "How do I know if my QR code was scanned?", "acceptedAnswer": {"@type": "Answer", "text": "In GA4, open Reports, then Acquisition, then Traffic acquisition, and look for the row matching the source and medium you tagged (for example qr / print). That row shows how many scans turned into visits."}}, {"@type": "Question", "name": "Do static QR codes have analytics?", "acceptedAnswer": {"@type": "Answer", "text": "The code itself does not count anything. It just holds a link. You get analytics by tagging that link with UTM parameters, so the visits it sends show up in the analytics you already run."}}, {"@type": "Question", "name": "What is a UTM parameter?", "acceptedAnswer": {"@type": "Answer", "text": "It is a small label added to the end of a URL that tells your analytics where a visit came from. utm_source, utm_medium, and utm_campaign are the three main ones. Google reads them and files each visit accordingly."}}, {"@type": "Question", "name": "Can I track QR scans without an app?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. This method needs no app on your phone and no app for the person scanning. The tracking happens in your web analytics after they land on the page."}}, {"@type": "Question", "name": "Will my static QR code stop working if I stop paying?", "acceptedAnswer": {"@type": "Answer", "text": "No. There is nothing to pay for. A static code encodes the destination directly in the pattern, so it keeps working with no server and no account behind it. The expiration risk belongs to dynamic codes that route through a paid redirect."}}]}</script>
+<!-- Cloudflare Web Analytics (cookieless, no personal data) --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e699a778c1664635913d24d7c1367fc9"}'></script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Won't My QR Code Scan? Causes and Fixes</title>
+<meta name="description" content="A plain-English checklist of the real reasons a QR code won't scan, from someone who built a QR tool, with the exact fix for each one.">
+<link rel="canonical" href="https://qrcodemadeeasy.com/guides/why-wont-my-qr-code-scan/">
+<meta name="author" content="Bud Hennekes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Why Won't My QR Code Scan? Causes and Fixes">
+<meta property="og:description" content="A plain-English checklist of the real reasons a QR code won't scan, from someone who built a QR tool, with the exact fix for each one.">
+<meta property="og:url" content="https://qrcodemadeeasy.com/guides/why-wont-my-qr-code-scan/">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#faf6ef; --paper-deep:#f3ecdf; --ink:#1b1913; --ink-soft:#5c564a;
+  --line:#e0d7c5; --accent:#0c9463; --accent-deep:#0a7850; --ok:#2e6e4e;
+  --warn-bg:#fdf0e3; --warn-border:#e8b07a; --card:#ffffff; --radius:14px;
+  --serif:"Fraunces",Georgia,serif; --sans:"Public Sans",-apple-system,"Helvetica Neue",sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.65;font-size:16px}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+  background-image:radial-gradient(rgba(27,25,19,.035) 1px,transparent 1px);background-size:5px 5px}
+.wrap{max-width:760px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+header{padding:26px 0 0}
+.masthead{display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-bottom:2px solid var(--ink);padding-bottom:14px}
+.wordmark{font-family:var(--serif);font-weight:700;font-size:22px;letter-spacing:-.01em;text-decoration:none;color:var(--ink)}
+.wordmark .dot{color:var(--accent)}
+.masthead nav{font-size:13px;font-weight:600}
+.masthead nav a{color:var(--ink-soft);text-decoration:none;margin-left:18px}
+.masthead nav a:hover{color:var(--accent)}
+article{padding:34px 0 10px}
+.crumbs{font-size:13px;color:var(--ink-soft);margin-bottom:22px}
+.crumbs a{color:var(--ink-soft);text-decoration:none}
+.crumbs a:hover{color:var(--accent)}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+h1{font-family:var(--serif);font-weight:600;letter-spacing:-.02em;font-size:clamp(30px,4.6vw,44px);line-height:1.1;margin-bottom:14px}
+.byline{font-size:14px;color:var(--ink-soft);margin-bottom:26px;padding-bottom:22px;border-bottom:1px solid var(--line)}
+.byline b{color:var(--ink);font-weight:600}
+article h2{font-family:var(--serif);font-weight:600;font-size:26px;letter-spacing:-.01em;margin:38px 0 12px;line-height:1.2}
+article h3{font-size:18px;font-weight:700;margin:24px 0 8px}
+article p{margin:0 0 16px}
+article p a,article li a{color:var(--accent-deep);text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
+article ul,article ol{margin:0 0 18px;padding-left:22px}
+article li{margin:0 0 8px}
+strong{font-weight:700}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;background:var(--paper-deep);border:1px solid var(--line);border-radius:5px;padding:1px 5px;overflow-wrap:anywhere}
+.tbl-wrap{overflow-x:auto;margin:0 0 24px}
+table{border-collapse:collapse;width:100%;font-size:15px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--paper-deep);font-weight:700;font-size:13px}
+tr:last-child td{border-bottom:none}
+.answer{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:var(--radius);padding:20px 22px;margin:0 0 26px;font-size:18px}
+.answer p{margin:0 0 10px}
+.answer p:last-child{margin:0}
+.answer .big{font-family:var(--serif);font-weight:600;font-size:20px;color:var(--ink);line-height:1.4}
+.toc{background:var(--paper-deep);border:1px solid var(--line);border-radius:var(--radius);padding:16px 20px;margin:0 0 30px;font-size:14px}
+.toc b{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:8px}
+.toc a{color:var(--ink);text-decoration:none;display:inline}
+.toc a:hover{color:var(--accent)}
+.toc ol{margin:0;padding-left:18px}
+.toc li{margin:0 0 4px}
+.note{background:var(--warn-bg);border:1px solid var(--warn-border);border-radius:var(--radius);padding:16px 20px;margin:0 0 24px;font-size:15px}
+.note b{color:var(--accent-deep)}
+.faq{margin-top:10px}
+.faq details{border-bottom:1px solid var(--line);padding:14px 0}
+.faq summary{font-weight:700;cursor:pointer;font-size:17px;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{content:"+";color:var(--accent);font-weight:700;margin-right:10px}
+.faq details[open] summary::before{content:"\2013"}
+.faq details p{margin:12px 0 0;color:var(--ink-soft)}
+.cta{background:var(--ink);color:var(--paper);border-radius:var(--radius);padding:26px 26px;margin:36px 0 10px;text-align:center}
+.cta h2{font-family:var(--serif);color:var(--paper);margin:0 0 8px;font-size:24px}
+.cta p{color:#cfc7b8;margin:0 0 16px;font-size:15px}
+.cta a.btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;font-weight:700;padding:11px 22px;border-radius:999px;font-size:15px}
+.cta a.btn:hover{background:var(--accent-deep)}
+footer{border-top:2px solid var(--ink);margin-top:44px;padding:28px 0 40px}
+.foot-grid{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.foot-left{max-width:420px}
+.foot-left p{font-size:13px;color:var(--ink-soft);margin-top:8px}
+.foot-links{display:flex;flex-direction:column;gap:8px;font-size:13px;text-align:right}
+.foot-links a{color:var(--accent);text-decoration:none;font-weight:600}
+.foot-note{font-size:12px;color:var(--ink-soft);margin-top:20px}
+</style>
+</head>
+<body>
+<header class="wrap">
+  <div class="masthead">
+    <a class="wordmark" href="../../">QR Codes Made Easy<span class="dot">.</span></a>
+    <nav>
+      <a href="../../">The tool</a>
+      <a href="../">Guides</a>
+      <a href="../../#faq">FAQ</a>
+      <a href="../../#support" style="color:var(--accent)">&#9829; Tip</a>
+    </nav>
+  </div>
+</header>
+<article class="wrap">
+  <div class="crumbs"><a href="../../">Home</a> / <a href="../">Guides</a> / Why won't my QR code scan?</div>
+  <div class="eyebrow">Troubleshooting</div>
+  <h1>Why Won't My QR Code Scan? The Real Causes and How to Fix Each One</h1>
+  <div class="byline">By <b>Bud Hennekes</b>, who built <a href="../../">QR Codes Made Easy</a>. Updated July 2026.</div>
+  <div class="answer"><p class="big">Most QR codes fail for one of two reasons: the code is printed too small for the distance people scan it from, or it does not have enough contrast (it needs a dark code on a light background). Check those two first, before anything else.</p></div>
+  <div class="toc"><b>What's here</b><ol><li><a href="#too-small">Too small for the scan distance</a></li><li><a href="#contrast">Low contrast or inverted colors</a></li><li><a href="#quiet-zone">No quiet zone (the missing border)</a></li><li><a href="#logo-error-correction">A logo covering the wrong part</a></li><li><a href="#print-surface">Blurry print, glare, and wear</a></li><li><a href="#test-and-links">The link is dead (and how to test)</a></li></ol></div>
+  <p>I built a free QR code tool, which means I have watched a lot of codes fail. Almost always it is one of a short list of causes, and almost always it is fixable before you waste a print run. Here they are in rough order of how often they are the real problem, each with the exact fix. Work down from the top and you will usually find your answer in the first two.</p>
+
+<h2 id="too-small">Your code is too small for the scan distance</h2>
+<p><strong>Symptom:</strong> the code looks fine on screen, but nobody can scan it off the printed piece, or people have to lean in close and hold the phone very still to get it.</p>
+<p>A phone camera can only read a QR code if it can see the individual squares (called modules). Print it too small for the distance people stand at, and the camera cannot resolve them. There is nothing wrong with the code itself. It is just physically too small to read from where people are standing.</p>
+<p><strong>Fix:</strong> use the <strong>10:1 rule</strong>. For every 10 units of scanning distance, make the code 1 unit wide. A code read from 10 inches away should be about 1 inch wide. A poster scanned from 10 feet needs a code around 1 foot wide. Add 20 to 30 percent if the lighting is poor or the surface curves. Never go below about 0.8 inches (2 cm) for anything printed. Full sizes by use case are in my guide on <a href="../how-big-should-a-qr-code-be-for-print/">how big a QR code should be for print</a>.</p>
+
+<h2 id="contrast">Low contrast or inverted colors</h2>
+<p>This is the number one killer, so if the code is a decent size, check this next.</p>
+<p><strong>Symptom:</strong> a pale or light-colored code, a code sitting on a busy or dark background, or a reversed code with light squares on a dark field. A few phones read it, most refuse.</p>
+<p>Scanners find a code by measuring the difference in brightness between the dark squares and the light background. The standard (ISO/IEC 18004) is built around <strong>dark modules on a light background</strong>. Flip that (light squares on a dark field, also called an inverted code) and many built-in iPhone and Android camera apps will not see it at all. Low contrast fails the same way: a light gray code, or a brand color that sits too close to its background, does not give the scanner enough of a difference to read.</p>
+<p><strong>Fix:</strong> use a <strong>dark code on a light background</strong>, never the reverse. Keep the contrast strong (dark navy or black on white or a pale tint is safe). If your brand is dark, do not invert the code to match. Put a normal dark-on-light code inside a light box or badge instead. My tool checks contrast and warns you before you download if the colors you picked are inverted or too close to scan.</p>
+
+<h2 id="quiet-zone">No quiet zone (the missing border)</h2>
+<p><strong>Symptom:</strong> the code scanned fine as a file, then stopped working once it was placed tight against text, an image, or the edge of the page.</p>
+<p>The plain border around a QR code is not decoration. It is part of the code. Denso Wave, the company that invented the format, requires a blank margin <strong>four modules wide on all four sides</strong>. That empty space is how the scanner finds where the code begins. Crop it off, or let a design element crowd right up to the edge, and the scanner can miss the code before it ever tries to read it.</p>
+<p><strong>Fix:</strong> leave a clear <strong>quiet zone</strong> around the code, at least the width of four of its own squares, and keep that space empty. When you drop the code into a layout, do not scale the box so tight that it eats the margin. If you cropped the image yourself to clean it up, re-export it with the border intact.</p>
+
+<h2 id="logo-error-correction">A logo covering the wrong part of the code</h2>
+<p><strong>Symptom:</strong> the code scanned fine, then you (or a designer) dropped a logo into the middle, and now it is unreliable or dead.</p>
+<p>A QR code can survive part of its area being covered, thanks to built-in <strong>error correction</strong>. Denso Wave defines four levels: L recovers about 7 percent of the data, M about 15 percent, Q about 25 percent, and H about 30 percent. A center logo spends part of that budget. Two things break a code here: a logo that is <strong>too big</strong>, and a logo (or heavy styling) that touches one of the <strong>three corner squares</strong>, called finder patterns, that the scanner uses to lock onto the code. Cover a finder pattern and the code will not scan, full stop.</p>
+<p><strong>Fix:</strong> keep a center logo small (roughly 20 to 25 percent of the code area is the safe working limit) and keep it in the <strong>center</strong>, well clear of all three corners. A code with a logo also needs a higher error correction level to make up for the covered area. My tool raises the error correction automatically when you add a logo, so the pattern keeps enough room to be read. For the exact numbers, see <a href="../qr-code-logo-size/">how much of a code a logo can safely cover</a>.</p>
+
+<h2 id="print-surface">Blurry printing, glare, curves, and wear</h2>
+<p>Once the design is right, the physical print is the next place codes die. Three related problems:</p>
+<p><strong>Blurry or pixelated print.</strong> Symptom: soft, fuzzy squares with no clean edges. Cause: a low-resolution PNG, or a JPEG stretched up to print size. JPEG compression smears the edges between squares, and the scanner cannot tell where one square ends and the next begins. Fix: export a <strong>vector SVG</strong> (it stays sharp at any size) or a high-resolution PNG, print at <strong>300 DPI or higher</strong> (600 DPI for small codes), and never save a QR code as a JPEG.</p>
+<p><strong>Glare, lamination, and curved surfaces.</strong> Symptom: works on flat paper, fails on a glossy sticker, a bottle, or a laminated menu under a light. Cause: reflections wash out the contrast, and a tight curve distorts the squares. Fix: choose a matte finish where you can, keep codes off sharp curves (or size them up to compensate), and test under the actual lighting the code will live in.</p>
+<p><strong>Damage, wrinkles, and fading.</strong> Symptom: an older or well-handled code slowly stops scanning. Cause: scratches, folds, sun-fading, and dirt eat past the error-correction budget until there is not enough left to recover. Fix: for anything outdoors or heavily handled, print at a higher error correction level so the code tolerates some damage, and reprint codes once they start to fade.</p>
+
+<h2 id="test-and-links">The code scans but nothing loads (and how to test)</h2>
+<p><strong>Symptom:</strong> the phone reads the code instantly and shows a link, but the page is dead, shows an error, or lands somewhere wrong.</p>
+<p>Now the QR code is fine. The destination is the problem. Two common cases. First, the <strong>URL is broken</strong> (a typo, a page that moved, or a link that was never live to begin with). Second, and this one stings: the code was a <strong>dynamic code</strong> from a paid service, and the subscription lapsed or the account closed, so the redirect it pointed through is gone. The printed code still scans. It just leads nowhere, and you cannot fix it without a reprint.</p>
+<p><strong>Fix:</strong> open the exact link in a browser and confirm it loads before you print anything. To avoid the second problem for good, use a <strong>static code</strong>, which has the destination written straight into the pattern with no middleman that can expire or bill you. That is what my tool makes: <a href="../../">make a fresh static code the right way</a>.</p>
+<p><strong>The test-before-you-print routine.</strong> Run this every time, on the real exported file, not the on-screen preview:</p>
+<ol>
+<li>Scan the actual file (or a test print at final size) with an <strong>iPhone</strong> and an <strong>Android</strong> phone, using each phone's built-in camera app.</li>
+<li>Scan from the <strong>real distance</strong> people will use, in similar lighting.</li>
+<li>Confirm the link opens the correct page.</li>
+<li>If it is going on a curved, glossy, or outdoor surface, test one real sample there before the full run.</li>
+</ol>
+<p>Two phones, real distance, real surface. That five-minute check is the difference between a code that works and a box of reprints. More walkthroughs are in <a href="../">the rest of the QR guides</a>.</p>
+  <h2 id="faq">FAQ</h2>
+  <div class="faq"><details><summary>Why won't my QR code scan?</summary><p>Almost always one of a few things: it is printed too small for the distance people scan from, it does not have enough contrast (it needs dark squares on a light background), the blank border around it got cropped, a logo is too big or covering a corner, or the print is blurry. Check size and contrast first, since those two cause most failures.</p></details><details><summary>Why is my QR code not working even though it looks fine on screen?</summary><p>Looking fine on a screen and scanning off a printed piece are different tests. The usual culprits are size (too small for how far away people stand), a cropped quiet zone once it was placed in a layout, or a low-resolution or JPEG export that went blurry at print size. Test the actual exported file, not the preview.</p></details><details><summary>How do I fix a QR code that won't scan?</summary><p>Work down the list in order. Make it bigger (about 1 unit wide for every 10 units of scan distance), use a dark code on a light background, leave a clear blank border, keep any logo small and centered away from the corners, and export a vector SVG or high-resolution PNG. Then scan the real file on two phones before you print.</p></details><details><summary>Why does my QR code work on some phones but not others?</summary><p>That points to a code sitting right at the edge of readable: low contrast, an inverted (light-on-dark) design, a slightly-too-large logo, or a size that is marginal for the distance. Better cameras and scanner apps forgive more, so they read it while stricter built-in camera apps fail. Fix the underlying issue rather than relying on the phones that happen to work.</p></details><details><summary>Can a QR code wear out or expire?</summary><p>A static code (destination written into the pattern) never expires, but the printed image can physically wear out. Scratches, folds, sun-fading, and dirt slowly eat past the error correction until it stops scanning. A dynamic code is different: it can stop working if the paid service behind it lapses, even though the printed image looks perfect.</p></details><details><summary>Does adding a logo stop a QR code from scanning?</summary><p>Not if you do it right. Error correction lets a code survive part of its area being covered, so a small logo (about 20 to 25 percent of the area) in the center is safe, as long as the error correction level is raised to match and the logo stays clear of the three corner squares. A logo that is too big, or one that touches a corner, will break the scan.</p></details></div>
+  <div class="cta">
+    <h2>Make a fresh static code</h2>
+    <p>QR Codes Made Easy builds a clean static code and warns you before you download one that won't scan. Free, no account.</p>
+    <a class="btn" href="../../">Build your QR code</a>
+  </div>
+</article>
+<footer>
+<div class="wrap foot-grid">
+<div class="foot-left">
+<a class="wordmark" href="../../">QR Codes Made Easy<span class="dot">.</span></a>
+<p>Codes generated in your browser. They never expire. We never see your data. Built to make a point, free to keep it honest.</p>
+</div>
+<div class="foot-links">
+<a href="../">All guides</a>
+<a href="https://www.paypal.com/paypalme/aboundlessworld" target="_blank" rel="noopener">&#9829; Tip the developer</a>
+<span style="font-weight:600;color:var(--ink-soft)">Built by Bud Hennekes</span>
+</div>
+</div>
+<div class="wrap foot-note">No cookies, no ad trackers, no accounts. Just a QR code that works.</div>
+</footer>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Why Won't My QR Code Scan? The Real Causes and How to Fix Each One", "description": "A plain-English checklist of the real reasons a QR code won't scan, from someone who built a QR tool, with the exact fix for each one.", "datePublished": "2026-07-07", "dateModified": "2026-07-07", "author": {"@type": "Person", "name": "Bud Hennekes", "url": "https://qrcodemadeeasy.com/"}, "publisher": {"@type": "Organization", "name": "QR Codes Made Easy", "url": "https://qrcodemadeeasy.com/"}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://qrcodemadeeasy.com/guides/why-wont-my-qr-code-scan/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://qrcodemadeeasy.com/"}, {"@type": "ListItem", "position": 2, "name": "Guides", "item": "https://qrcodemadeeasy.com/guides/"}, {"@type": "ListItem", "position": 3, "name": "Why won't my QR code scan?", "item": "https://qrcodemadeeasy.com/guides/why-wont-my-qr-code-scan/"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Why won't my QR code scan?", "acceptedAnswer": {"@type": "Answer", "text": "Almost always one of a few things: it is printed too small for the distance people scan from, it does not have enough contrast (it needs dark squares on a light background), the blank border around it got cropped, a logo is too big or covering a corner, or the print is blurry. Check size and contrast first, since those two cause most failures."}}, {"@type": "Question", "name": "Why is my QR code not working even though it looks fine on screen?", "acceptedAnswer": {"@type": "Answer", "text": "Looking fine on a screen and scanning off a printed piece are different tests. The usual culprits are size (too small for how far away people stand), a cropped quiet zone once it was placed in a layout, or a low-resolution or JPEG export that went blurry at print size. Test the actual exported file, not the preview."}}, {"@type": "Question", "name": "How do I fix a QR code that won't scan?", "acceptedAnswer": {"@type": "Answer", "text": "Work down the list in order. Make it bigger (about 1 unit wide for every 10 units of scan distance), use a dark code on a light background, leave a clear blank border, keep any logo small and centered away from the corners, and export a vector SVG or high-resolution PNG. Then scan the real file on two phones before you print."}}, {"@type": "Question", "name": "Why does my QR code work on some phones but not others?", "acceptedAnswer": {"@type": "Answer", "text": "That points to a code sitting right at the edge of readable: low contrast, an inverted (light-on-dark) design, a slightly-too-large logo, or a size that is marginal for the distance. Better cameras and scanner apps forgive more, so they read it while stricter built-in camera apps fail. Fix the underlying issue rather than relying on the phones that happen to work."}}, {"@type": "Question", "name": "Can a QR code wear out or expire?", "acceptedAnswer": {"@type": "Answer", "text": "A static code (destination written into the pattern) never expires, but the printed image can physically wear out. Scratches, folds, sun-fading, and dirt slowly eat past the error correction until it stops scanning. A dynamic code is different: it can stop working if the paid service behind it lapses, even though the printed image looks perfect."}}, {"@type": "Question", "name": "Does adding a logo stop a QR code from scanning?", "acceptedAnswer": {"@type": "Answer", "text": "Not if you do it right. Error correction lets a code survive part of its area being covered, so a small logo (about 20 to 25 percent of the area) in the center is safe, as long as the error correction level is raised to match and the logo stays clear of the three corner squares. A logo that is too big, or one that touches a corner, will break the scan."}}]}</script>
+<!-- Cloudflare Web Analytics (cookieless, no personal data) --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e699a778c1664635913d24d7c1367fc9"}'></script>
+</body>
+</html>
