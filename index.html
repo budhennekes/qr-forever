@@ -101,12 +101,20 @@ header{padding:26px 0 0}
 .control-group{margin-bottom:26px}
 .control-group:last-child{margin-bottom:0}
 
-input[type="url"]{
+input[type="url"], input[type="tel"], input.wa-message, #wa-country{
   width:100%;font-family:var(--sans);font-size:16px;padding:13px 14px;
   border:1.5px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);
   transition:border-color .15s;
 }
-input[type="url"]:focus{outline:none;border-color:var(--ink)}
+input[type="url"]:focus, input[type="tel"]:focus, input.wa-message:focus, #wa-country:focus{outline:none;border-color:var(--ink)}
+#wa-country{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' stroke='%235c564a' stroke-width='1.7' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:34px}
+
+/* content type tabs */
+.type-tabs{display:flex;gap:5px;background:var(--paper-deep);border:1px solid var(--line);border-radius:11px;padding:4px;margin-bottom:12px}
+.type-tab{flex:1;border:none;background:none;font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink-soft);padding:10px 10px;border-radius:8px;cursor:pointer;min-height:44px;transition:background .15s,color .15s}
+.type-tab.active{background:var(--card);color:var(--ink);box-shadow:0 1px 3px rgba(27,25,19,.08)}
+.wa-row{display:flex;flex-direction:column;gap:8px}
+.wa-message{margin-top:8px}
 
 /* presets */
 .presets{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
@@ -121,23 +129,29 @@ input[type="url"]:focus{outline:none;border-color:var(--ink)}
 .preset span{font-size:11.5px;font-weight:600;color:var(--ink)}
 
 /* colors */
-.color-row{display:flex;gap:12px;flex-wrap:wrap}
-.color-chip{
-  display:flex;align-items:center;gap:9px;border:1.5px solid var(--line);border-radius:10px;
-  background:var(--card);padding:8px 12px 8px 8px;cursor:pointer;
-}
-.color-chip input[type="color"]{
-  -webkit-appearance:none;appearance:none;width:30px;height:30px;border:none;border-radius:7px;
+.color-row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end}
+.color-field{flex:1 1 150px;min-width:0}
+.color-field > label{display:block;font-size:12px;font-weight:600;color:var(--ink-soft);margin-bottom:6px}
+.color-input{display:flex;align-items:center;gap:8px;border:1.5px solid var(--line);border-radius:10px;background:var(--card);padding:6px 8px}
+.color-input:focus-within{border-color:var(--ink)}
+.color-input input[type="color"]{
+  -webkit-appearance:none;appearance:none;width:34px;height:34px;min-width:34px;border:none;border-radius:7px;
   cursor:pointer;background:none;padding:0;
 }
-.color-chip input[type="color"]::-webkit-color-swatch-wrapper{padding:0}
-.color-chip input[type="color"]::-webkit-color-swatch{border:1px solid rgba(0,0,0,.12);border-radius:7px}
-.color-chip label{font-size:13px;font-weight:600;cursor:pointer}
-.swap-btn{
-  border:none;background:none;color:var(--ink-soft);font-size:12px;font-weight:600;cursor:pointer;
-  text-decoration:underline;text-underline-offset:3px;padding:4px;
+.color-input input[type="color"]::-webkit-color-swatch-wrapper{padding:0}
+.color-input input[type="color"]::-webkit-color-swatch{border:1px solid rgba(0,0,0,.12);border-radius:7px}
+.color-input .hex{
+  flex:1;min-width:0;width:100%;border:none;background:none;color:var(--ink);
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:16px;text-transform:uppercase;
+  letter-spacing:.01em;padding:6px 2px;
 }
-.swap-btn:hover{color:var(--accent)}
+.color-input .hex:focus{outline:none}
+.swap-btn{
+  align-self:center;border:1.5px solid var(--line);background:var(--card);color:var(--ink-soft);
+  font-family:var(--sans);font-size:13px;font-weight:600;cursor:pointer;
+  padding:9px 14px;border-radius:10px;min-height:44px;
+}
+.swap-btn:hover{color:var(--accent);border-color:var(--ink-soft)}
 
 /* logo */
 .logo-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
@@ -335,6 +349,8 @@ footer{margin-top:80px;border-top:2px solid var(--ink);padding:30px 0 46px}
   .stage{padding:24px 20px 26px}
   .edu h2{font-size:25px}
   .support{padding:26px 20px}
+  .color-field{flex-basis:100%}
+  .swap-btn{flex-basis:100%;width:100%}
 }
 </style>
 </head>
@@ -369,8 +385,22 @@ footer{margin-top:80px;border-top:2px solid var(--ink);padding:30px 0 46px}
     <div class="controls">
 
       <div class="control-group">
-        <span class="field-label"><span class="step-num">1</span>Where should it point?</span>
-        <input type="url" id="url-input" placeholder="https://yourbrand.com" value="" autocomplete="off" spellcheck="false">
+        <span class="field-label"><span class="step-num">1</span>What should it open?</span>
+        <div class="type-tabs" id="type-tabs">
+          <button class="type-tab active" data-type="link" type="button">Website link</button>
+          <button class="type-tab" data-type="whatsapp" type="button">WhatsApp chat</button>
+        </div>
+        <div id="pane-link">
+          <input type="url" id="url-input" placeholder="https://yourbrand.com" value="" autocomplete="off" spellcheck="false">
+        </div>
+        <div id="pane-whatsapp" hidden>
+          <div class="wa-row">
+            <select id="wa-country" aria-label="Country"></select>
+            <input type="tel" id="wa-number" placeholder="Phone number" inputmode="numeric" autocomplete="off" spellcheck="false">
+          </div>
+          <input type="text" id="wa-message" class="wa-message" placeholder="Pre-filled message (optional)" autocomplete="off" maxlength="300">
+          <p class="hint">Scanning opens a WhatsApp chat with your number. I build the <b>wa.me</b> link for you.</p>
+        </div>
       </div>
 
       <div class="control-group">
@@ -398,15 +428,21 @@ footer{margin-top:80px;border-top:2px solid var(--ink);padding:30px 0 46px}
       <div class="control-group">
         <span class="field-label"><span class="step-num">3</span>Your colors</span>
         <div class="color-row">
-          <div class="color-chip">
-            <input type="color" id="fg-color" value="#1b1913">
-            <label for="fg-color">Code</label>
+          <div class="color-field">
+            <label for="fg-hex">Code</label>
+            <div class="color-input">
+              <input type="color" id="fg-color" value="#1b1913" aria-label="Code color swatch">
+              <input type="text" id="fg-hex" class="hex" value="#1B1913" maxlength="7" spellcheck="false" autocomplete="off" aria-label="Code color hex">
+            </div>
           </div>
-          <div class="color-chip">
-            <input type="color" id="bg-color" value="#ffffff">
-            <label for="bg-color">Background</label>
+          <div class="color-field">
+            <label for="bg-hex">Background</label>
+            <div class="color-input">
+              <input type="color" id="bg-color" value="#ffffff" aria-label="Background color swatch">
+              <input type="text" id="bg-hex" class="hex" value="#FFFFFF" maxlength="7" spellcheck="false" autocomplete="off" aria-label="Background color hex">
+            </div>
           </div>
-          <button class="swap-btn" id="swap-colors" type="button">swap</button>
+          <button class="swap-btn" id="swap-colors" type="button">swap colors</button>
         </div>
       </div>
 
@@ -682,11 +718,15 @@ footer{margin-top:80px;border-top:2px solid var(--ink);padding:30px 0 46px}
   var DEMO_TEXT = "https://qrcodemadeeasy.com/scanned/";
 
   var state = {
+    type: "link",        // "link" | "whatsapp"
     url: "",
+    waCode: "1",         // country dial code (US default)
+    waNumber: "",
+    waMessage: "",
     preset: "classic",
     fg: "#1b1913",
     bg: "#ffffff",
-    logo: null,        // dataURL
+    logo: null,          // dataURL
     transparent: false
   };
 
@@ -697,6 +737,18 @@ footer{margin-top:80px;border-top:2px solid var(--ink);padding:30px 0 46px}
     print:   { dots:"square",        corners:"square",       cornerDot:"square" } // print-safe also forces high contrast behavior via warning
   };
 
+  // What the code actually encodes, based on the selected type.
+  function currentData(){
+    if (state.type === "whatsapp"){
+      var digits = (state.waCode + state.waNumber).replace(/\D/g, "");
+      if (digits.length < 6) return "";     // not a usable number yet, keep the demo code
+      var u = "https://wa.me/" + digits;
+      if (state.waMessage.trim()) u += "?text=" + encodeURIComponent(state.waMessage.trim());
+      return u;
+    }
+    return state.url;
+  }
+
   var PREVIEW_SIZE = 230;
 
   function buildOptions(size, forDownload){
@@ -706,7 +758,7 @@ footer{margin-top:80px;border-top:2px solid var(--ink);padding:30px 0 46px}
       width: size,
       height: size,
       type: "canvas",
-      data: state.url || DEMO_TEXT,
+      data: currentData() || DEMO_TEXT,
       margin: Math.round(size * 0.04),            // enforced quiet zone
       qrOptions: {
         errorCorrectionLevel: state.logo ? "H" : (state.preset === "print" ? "Q" : "M")
@@ -772,6 +824,60 @@ footer{margin-top:80px;border-top:2px solid var(--ink);padding:30px 0 46px}
     refresh();
   });
 
+  /* ---------- content type: website link vs WhatsApp ---------- */
+  // [ISO, name, dial code, flag]
+  var COUNTRIES = [
+    ["US","United States","1","🇺🇸"],["GB","United Kingdom","44","🇬🇧"],["CA","Canada","1","🇨🇦"],
+    ["AU","Australia","61","🇦🇺"],["BR","Brazil","55","🇧🇷"],["MX","Mexico","52","🇲🇽"],
+    ["IN","India","91","🇮🇳"],["ID","Indonesia","62","🇮🇩"],["NG","Nigeria","234","🇳🇬"],
+    ["PK","Pakistan","92","🇵🇰"],["BD","Bangladesh","880","🇧🇩"],["DE","Germany","49","🇩🇪"],
+    ["FR","France","33","🇫🇷"],["IT","Italy","39","🇮🇹"],["ES","Spain","34","🇪🇸"],
+    ["PT","Portugal","351","🇵🇹"],["NL","Netherlands","31","🇳🇱"],["BE","Belgium","32","🇧🇪"],
+    ["CH","Switzerland","41","🇨🇭"],["AT","Austria","43","🇦🇹"],["IE","Ireland","353","🇮🇪"],
+    ["SE","Sweden","46","🇸🇪"],["NO","Norway","47","🇳🇴"],["DK","Denmark","45","🇩🇰"],
+    ["FI","Finland","358","🇫🇮"],["PL","Poland","48","🇵🇱"],["CZ","Czech Republic","420","🇨🇿"],
+    ["GR","Greece","30","🇬🇷"],["RO","Romania","40","🇷🇴"],["HU","Hungary","36","🇭🇺"],
+    ["UA","Ukraine","380","🇺🇦"],["RU","Russia","7","🇷🇺"],["TR","Turkey","90","🇹🇷"],
+    ["AR","Argentina","54","🇦🇷"],["CL","Chile","56","🇨🇱"],["CO","Colombia","57","🇨🇴"],
+    ["PE","Peru","51","🇵🇪"],["VE","Venezuela","58","🇻🇪"],["EC","Ecuador","593","🇪🇨"],
+    ["BO","Bolivia","591","🇧🇴"],["PY","Paraguay","595","🇵🇾"],["UY","Uruguay","598","🇺🇾"],
+    ["GT","Guatemala","502","🇬🇹"],["CR","Costa Rica","506","🇨🇷"],["PA","Panama","507","🇵🇦"],
+    ["DO","Dominican Republic","1","🇩🇴"],["CN","China","86","🇨🇳"],["JP","Japan","81","🇯🇵"],
+    ["KR","South Korea","82","🇰🇷"],["PH","Philippines","63","🇵🇭"],["VN","Vietnam","84","🇻🇳"],
+    ["TH","Thailand","66","🇹🇭"],["MY","Malaysia","60","🇲🇾"],["SG","Singapore","65","🇸🇬"],
+    ["HK","Hong Kong","852","🇭🇰"],["TW","Taiwan","886","🇹🇼"],["AE","UAE","971","🇦🇪"],
+    ["SA","Saudi Arabia","966","🇸🇦"],["IL","Israel","972","🇮🇱"],["EG","Egypt","20","🇪🇬"],
+    ["ZA","South Africa","27","🇿🇦"],["KE","Kenya","254","🇰🇪"],["GH","Ghana","233","🇬🇭"],
+    ["MA","Morocco","212","🇲🇦"],["NZ","New Zealand","64","🇳🇿"]
+  ];
+  (function(){
+    var sel = document.getElementById("wa-country");
+    COUNTRIES.forEach(function(c){
+      var o = document.createElement("option");
+      o.value = c[0]; o.setAttribute("data-dial", c[2]);
+      o.textContent = c[3] + "  " + c[1] + "  (+" + c[2] + ")";
+      if (c[0] === "US") o.selected = true;
+      sel.appendChild(o);
+    });
+  })();
+
+  document.querySelectorAll(".type-tab").forEach(function(tab){
+    tab.addEventListener("click", function(){
+      document.querySelectorAll(".type-tab").forEach(function(t){ t.classList.remove("active"); });
+      tab.classList.add("active");
+      state.type = tab.dataset.type;
+      document.getElementById("pane-link").hidden = (state.type !== "link");
+      document.getElementById("pane-whatsapp").hidden = (state.type !== "whatsapp");
+      refresh();
+    });
+  });
+  document.getElementById("wa-country").addEventListener("change", function(e){
+    state.waCode = e.target.selectedOptions[0].getAttribute("data-dial");
+    refresh();
+  });
+  document.getElementById("wa-number").addEventListener("input", function(e){ state.waNumber = e.target.value; refresh(); });
+  document.getElementById("wa-message").addEventListener("input", function(e){ state.waMessage = e.target.value; refresh(); });
+
   document.querySelectorAll(".preset").forEach(function(btn){
     btn.addEventListener("click", function(){
       document.querySelectorAll(".preset").forEach(function(b){ b.classList.remove("active"); });
@@ -781,13 +887,34 @@ footer{margin-top:80px;border-top:2px solid var(--ink);padding:30px 0 46px}
     });
   });
 
-  document.getElementById("fg-color").addEventListener("input", function(e){ state.fg = e.target.value; refresh(); });
-  document.getElementById("bg-color").addEventListener("input", function(e){ state.bg = e.target.value; refresh(); });
+  // Accept hex with or without the leading #, and 3-digit shorthand (fff).
+  function normalizeHex(v){
+    v = (v || "").trim().replace(/^#/, "");
+    if (/^[0-9a-fA-F]{3}$/.test(v)) v = v.replace(/(.)/g, "$1$1");
+    return /^[0-9a-fA-F]{6}$/.test(v) ? "#" + v.toLowerCase() : null;
+  }
+  ["fg","bg"].forEach(function(which){
+    var swatch = document.getElementById(which + "-color");
+    var hex = document.getElementById(which + "-hex");
+    swatch.addEventListener("input", function(e){
+      state[which] = e.target.value;
+      hex.value = e.target.value.toUpperCase();
+      refresh();
+    });
+    hex.addEventListener("input", function(){
+      var n = normalizeHex(hex.value);
+      if (n){ state[which] = n; swatch.value = n; refresh(); }  // apply live, leave the text alone while typing
+    });
+    hex.addEventListener("blur", function(){ hex.value = state[which].toUpperCase(); });  // tidy up (or revert) on exit
+    hex.addEventListener("keydown", function(e){ if (e.key === "Enter") hex.blur(); });
+  });
 
   document.getElementById("swap-colors").addEventListener("click", function(){
     var tmp = state.fg; state.fg = state.bg; state.bg = tmp;
     document.getElementById("fg-color").value = state.fg;
     document.getElementById("bg-color").value = state.bg;
+    document.getElementById("fg-hex").value = state.fg.toUpperCase();
+    document.getElementById("bg-hex").value = state.bg.toUpperCase();
     refresh();
   });
 
@@ -831,6 +958,8 @@ footer{margin-top:80px;border-top:2px solid var(--ink);padding:30px 0 46px}
     });
     document.getElementById("fg-color").value = state.fg;
     document.getElementById("bg-color").value = state.bg;
+    document.getElementById("fg-hex").value = state.fg.toUpperCase();
+    document.getElementById("bg-hex").value = state.bg.toUpperCase();
     document.getElementById("logo-input").value = "";
     document.getElementById("logo-clear").style.display = "none";
     document.getElementById("logo-hint").innerHTML = DEFAULT_LOGO_HINT;
@@ -840,6 +969,7 @@ footer{margin-top:80px;border-top:2px solid var(--ink);padding:30px 0 46px}
 
   /* ---------- downloads ---------- */
   function fileName(){
+    if (state.type === "whatsapp") return "qr-whatsapp";
     var host = "qr-code";
     try { if (state.url) host = new URL(state.url).hostname.replace(/^www\./,"").replace(/\./g,"-"); } catch(e){}
     return "qr-" + host;
