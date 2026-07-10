@@ -20,18 +20,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#faf6ef;
-  --paper-deep:#f3ecdf;
-  --ink:#1b1913;
-  --ink-soft:#5c564a;
-  --line:#e0d7c5;
-  --accent:#0c9463;
-  --accent-deep:#0a7850;
-  --ok:#2e6e4e;
+  --paper:#f5f7f6;
+  --paper-deep:#e9eeec;
+  --ink:#14201c;
+  --ink-soft:#586661;
+  --line:#e1e8e4;
+  --accent:#0aa88a;
+  --accent-deep:#0a8768;
+  --accent-2:#12b3b6;
+  --ok:#0a8768;
   --warn-bg:#fdf0e3;
   --warn-border:#e8b07a;
   --card:#ffffff;
-  --radius:14px;
+  --radius:16px;
+  --grad:linear-gradient(135deg,var(--accent),var(--accent-2));
   --serif:"Fraunces",Georgia,serif;
   --sans:"Public Sans",-apple-system,"Helvetica Neue",sans-serif;
 }
@@ -44,11 +46,12 @@ body{
   line-height:1.6;
   font-size:16px;
 }
-/* subtle paper grain */
+/* soft modern gradient ambience */
 body::before{
-  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
-  background-image:radial-gradient(rgba(27,25,19,.035) 1px,transparent 1px);
-  background-size:5px 5px;
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(1100px 520px at 84% -10%, rgba(18,179,182,.07), transparent 60%),
+    radial-gradient(900px 460px at -5% 2%, rgba(10,168,138,.05), transparent 55%);
 }
 .wrap{max-width:1040px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
 
@@ -65,7 +68,7 @@ header{padding:26px 0 0}
 .hero{position:relative;padding:54px 0 34px;text-align:left;max-width:720px}
 .hero::before{
   content:"";position:absolute;z-index:0;top:-46px;left:0;right:0;height:320px;pointer-events:none;
-  background:radial-gradient(62% 92% at 74% 32%, rgba(12,148,99,.17), rgba(12,148,99,0) 70%);
+  background:radial-gradient(58% 92% at 76% 26%, rgba(18,179,182,.22), rgba(10,168,138,0) 70%);
 }
 .hero-deco{position:absolute;z-index:1;top:4px;right:0;width:128px;height:128px;color:var(--accent);opacity:.14;pointer-events:none}
 .hero-deco svg{width:100%;height:100%;display:block}
@@ -86,13 +89,13 @@ header{padding:26px 0 0}
   border:1px solid var(--line);background:var(--card);border-radius:999px;padding:5px 12px;color:var(--ink-soft);
 }
 .badge b{color:var(--ok);font-weight:700}
-.badge.badge-solid{background:var(--accent);border-color:var(--accent);color:#fff}
+.badge.badge-solid{background:var(--grad);border-color:transparent;color:#fff}
 @media (max-width:600px){.hero-deco{display:none}}
 
 /* ---------- tool ---------- */
 .tool{
   background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
-  box-shadow:0 1px 2px rgba(27,25,19,.04),0 12px 40px -18px rgba(27,25,19,.18);
+  box-shadow:0 1px 2px rgba(20,32,28,.04),0 26px 64px -30px rgba(20,32,28,.24);
   display:grid;grid-template-columns:1.15fr .85fr;overflow:hidden;
 }
 .controls{padding:30px 32px;border-right:1px solid var(--line)}
@@ -213,6 +216,8 @@ select:focus{outline:none;border-color:var(--ink)}
 .btn-primary:hover{background:#000}
 .btn-secondary{background:none;border:1.5px solid var(--ink);color:var(--ink);margin-top:8px}
 .btn-secondary:hover{background:var(--paper)}
+.btn-2col{display:flex;gap:8px;margin-top:8px}
+.btn-2col .btn{margin-top:0;flex:1;min-width:0;gap:6px;padding-left:12px;padding-right:12px}
 .transparent-row{display:flex;align-items:center;gap:8px;margin-top:12px;font-size:13px;font-weight:600;color:var(--ink-soft);justify-content:center}
 .transparent-row input{accent-color:var(--ink);width:15px;height:15px;cursor:pointer}
 .transparent-row label{cursor:pointer}
@@ -534,7 +539,10 @@ footer{margin-top:80px;border-top:2px solid var(--ink);padding:30px 0 46px}
           </select>
         </div>
         <button class="btn btn-primary" id="dl-png" type="button">Download PNG</button>
-        <button class="btn btn-secondary" id="dl-svg" type="button">Download SVG (vector)</button>
+        <div class="btn-2col">
+          <button class="btn btn-secondary" id="share-btn" type="button"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v12M12 3l-4 4M12 3l4 4M5 11v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Share</button>
+          <button class="btn btn-secondary" id="dl-svg" type="button">SVG vector</button>
+        </div>
         <div class="transparent-row">
           <input type="checkbox" id="transparent-bg">
           <label for="transparent-bg">Transparent background</label>
@@ -1119,13 +1127,14 @@ footer{margin-top:80px;border-top:2px solid var(--ink);padding:30px 0 46px}
   }
 
   var noteTimer;
-  function showSaved(){
+  function flashDlNote(msg){
     var note = document.getElementById("dl-note");
-    note.textContent = "Saved. Scan it once more before it goes to print.";
+    note.textContent = msg;
     note.classList.add("show");
     clearTimeout(noteTimer);
     noteTimer = setTimeout(function(){ note.classList.remove("show"); }, 4500);
   }
+  function showSaved(){ flashDlNote("Saved. Scan it once more before it goes to print."); }
 
   document.getElementById("dl-png").addEventListener("click", function(){
     var size = parseInt(document.getElementById("png-size").value, 10);
@@ -1141,6 +1150,35 @@ footer{margin-top:80px;border-top:2px solid var(--ink);padding:30px 0 46px}
     dl.download({ name: fileName(), extension: "svg" });
     showSaved();
   });
+
+  /* ---------- share to social ---------- */
+  // On a phone this opens the native share sheet (Instagram, WhatsApp, Messages,
+  // Stories, etc.) with the actual PNG. On desktop, where sites can't take a
+  // pushed-in image, we copy the PNG to the clipboard so it's ready to paste.
+  document.getElementById("share-btn").addEventListener("click", function(){ shareCode(); });
+  async function shareCode(){
+    if (!currentData()){ flashDlNote("Add your link or number first, then share your code."); return; }
+    var btn = document.getElementById("share-btn");
+    btn.disabled = true;
+    try {
+      var blob = await new QRCodeStyling(buildOptions(1000, true)).getRawData("png");
+      if (!blob) throw new Error("no image");
+      var file = new File([blob], fileName() + ".png", { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })){
+        await navigator.share({ files: [file], title: "My QR code", text: "Scan this QR code." });
+      } else if (navigator.clipboard && window.ClipboardItem){
+        await navigator.clipboard.write([ new ClipboardItem({ "image/png": blob }) ]);
+        flashDlNote("Image copied. Paste it straight into your post.");
+      } else {
+        new QRCodeStyling(buildOptions(1000, true)).download({ name: fileName(), extension: "png" });
+        flashDlNote("Saved the image. Attach it to your post.");
+      }
+    } catch(e){
+      if (!(e && e.name === "AbortError")) flashDlNote("Couldn't open sharing here. Download the PNG and post it instead.");
+    } finally {
+      btn.disabled = false;
+    }
+  }
 
   /* ---------- embed on your website ---------- */
   // A self-contained snippet: the QR is an SVG baked into a data URI, so there is
