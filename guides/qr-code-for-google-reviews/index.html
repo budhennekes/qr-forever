@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Make a QR Code for Google Reviews (Free) — QR Codes Made Easy</title>
+<meta name="description" content="Make a free QR code that opens your Google review form so customers leave a review in seconds. Get your review link, make a static code, print it. Never expires.">
+<link rel="canonical" href="https://qrcodemadeeasy.com/guides/qr-code-for-google-reviews/">
+<meta name="author" content="Bud Hennekes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to Make a QR Code for Google Reviews (Free)">
+<meta property="og:description" content="Make a free QR code that opens your Google review form so customers leave a review in seconds. Get your review link, make a static code, print it. Never expires.">
+<meta property="og:url" content="https://qrcodemadeeasy.com/guides/qr-code-for-google-reviews/">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f5f7f6; --paper-deep:#e9eeec; --ink:#14201c; --ink-soft:#586661;
+  --line:#e1e8e4; --accent:#0aa88a; --accent-deep:#0a8768; --ok:#0a8768;
+  --warn-bg:#fdf0e3; --warn-border:#e8b07a; --card:#ffffff; --radius:16px;
+  --serif:"Fraunces",Georgia,serif; --sans:"Public Sans",-apple-system,"Helvetica Neue",sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.65;font-size:16px}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+  background:radial-gradient(1100px 520px at 84% -10%,rgba(18,179,182,.07),transparent 60%),radial-gradient(900px 460px at -5% 2%,rgba(10,168,138,.05),transparent 55%)}
+.wrap{max-width:760px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+header{padding:26px 0 0}
+.masthead{display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-bottom:2px solid var(--ink);padding-bottom:14px}
+.wordmark{font-family:var(--serif);font-weight:700;font-size:22px;letter-spacing:-.01em;text-decoration:none;color:var(--ink)}
+.wordmark .dot{color:var(--accent)}
+.masthead nav{font-size:13px;font-weight:600}
+.masthead nav a{color:var(--ink-soft);text-decoration:none;margin-left:18px}
+.masthead nav a:hover{color:var(--accent)}
+article{padding:34px 0 10px}
+.crumbs{font-size:13px;color:var(--ink-soft);margin-bottom:22px}
+.crumbs a{color:var(--ink-soft);text-decoration:none}
+.crumbs a:hover{color:var(--accent)}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+h1{font-family:var(--serif);font-weight:600;letter-spacing:-.02em;font-size:clamp(30px,4.6vw,44px);line-height:1.1;margin-bottom:14px}
+.byline{font-size:14px;color:var(--ink-soft);margin-bottom:26px;padding-bottom:22px;border-bottom:1px solid var(--line)}
+.byline b{color:var(--ink);font-weight:600}
+article h2{font-family:var(--serif);font-weight:600;font-size:26px;letter-spacing:-.01em;margin:38px 0 12px;line-height:1.2}
+article h3{font-size:18px;font-weight:700;margin:24px 0 8px}
+article p{margin:0 0 16px}
+article p a,article li a{color:var(--accent-deep);text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
+article ul,article ol{margin:0 0 18px;padding-left:22px}
+article li{margin:0 0 8px}
+strong{font-weight:700}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;background:var(--paper-deep);border:1px solid var(--line);border-radius:5px;padding:1px 5px;overflow-wrap:anywhere}
+.tbl-wrap{overflow-x:auto;margin:0 0 24px}
+table{border-collapse:collapse;width:100%;font-size:15px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--paper-deep);font-weight:700;font-size:13px}
+tr:last-child td{border-bottom:none}
+.answer{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:var(--radius);padding:20px 22px;margin:0 0 26px;font-size:18px}
+.answer p{margin:0 0 10px}
+.answer p:last-child{margin:0}
+.answer .big{font-family:var(--serif);font-weight:600;font-size:20px;color:var(--ink);line-height:1.4}
+.toc{background:var(--paper-deep);border:1px solid var(--line);border-radius:var(--radius);padding:16px 20px;margin:0 0 30px;font-size:14px}
+.toc b{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:8px}
+.toc a{color:var(--ink);text-decoration:none;display:inline}
+.toc a:hover{color:var(--accent)}
+.toc ol{margin:0;padding-left:18px}
+.toc li{margin:0 0 4px}
+.note{background:var(--warn-bg);border:1px solid var(--warn-border);border-radius:var(--radius);padding:16px 20px;margin:0 0 24px;font-size:15px}
+.note b{color:var(--accent-deep)}
+.faq{margin-top:10px}
+.faq details{border-bottom:1px solid var(--line);padding:14px 0}
+.faq summary{font-weight:700;cursor:pointer;font-size:17px;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{content:"+";color:var(--accent);font-weight:700;margin-right:10px}
+.faq details[open] summary::before{content:"\2013"}
+.faq details p{margin:12px 0 0;color:var(--ink-soft)}
+.cta{background:var(--ink);color:var(--paper);border-radius:var(--radius);padding:26px 26px;margin:36px 0 10px;text-align:center}
+.cta h2{font-family:var(--serif);color:var(--paper);margin:0 0 8px;font-size:24px}
+.cta p{color:#cfc7b8;margin:0 0 16px;font-size:15px}
+.cta a.btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;font-weight:700;padding:11px 22px;border-radius:999px;font-size:15px}
+.cta a.btn:hover{background:var(--accent-deep)}
+footer{border-top:2px solid var(--ink);margin-top:44px;padding:28px 0 40px}
+.foot-grid{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.foot-left{max-width:420px}
+.foot-left p{font-size:13px;color:var(--ink-soft);margin-top:8px}
+.foot-links{display:flex;flex-direction:column;gap:8px;font-size:13px;text-align:right}
+.foot-links a{color:var(--accent);text-decoration:none;font-weight:600}
+.foot-note{font-size:12px;color:var(--ink-soft);margin-top:20px}
+.nextstep{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:var(--radius);padding:18px 22px;margin:26px 0}
+.nextstep b{display:block;font-family:var(--serif);font-weight:600;font-size:17px;margin-bottom:6px;color:var(--ink)}
+.nextstep p{margin:0 0 10px;font-size:15px;color:var(--ink-soft)}
+.nextstep .links a{display:inline-block;font-weight:600;color:var(--accent-deep);text-decoration:none;font-size:15px}
+.nextstep .links a:hover{text-decoration:underline}
+.nextstep .aff-mini{font-size:12px;color:var(--ink-soft);margin:8px 0 0;font-style:italic}
+</style>
+</head>
+<body>
+<header class="wrap">
+  <div class="masthead">
+    <a class="wordmark" href="../../">QR Codes Made Easy<span class="dot">.</span></a>
+    <nav>
+      <a href="../../">The tool</a>
+      <a href="../">Guides</a>
+      <a href="../../#faq">FAQ</a>
+      <a href="../../#support" style="color:var(--accent)">&#9829; Tip</a>
+    </nav>
+  </div>
+</header>
+<article class="wrap">
+  <div class="crumbs"><a href="../../">Home</a> / <a href="../">Guides</a> / QR code for Google reviews</div>
+  <div class="eyebrow">Reviews &amp; local</div>
+  <h1>How to Make a QR Code for Google Reviews</h1>
+  <div class="byline">By <b>Bud Hennekes</b>, who built <a href="../../">QR Codes Made Easy</a>. Updated July 2026.</div>
+  <div class="answer"><p class="big">Make a static QR code that points at your Google review link, the one that opens the star-rating box for your business. Get the link from your Google Business Profile, paste it into the tool, and print the code on a table tent, receipt, or counter card. It never expires, so the same printed code keeps collecting reviews for years. Free, no account.</p></div>
+  <div class="toc"><b>What's here</b><ol><li><a href="#get-link">First, get your Google review link</a></li><li><a href="#make-code">Make the static code (2 minutes)</a></li><li><a href="#where">Where to put it</a></li><li><a href="#why-static">Why static is the right call here</a></li><li><a href="#honest-rules">The honest rules</a></li></ol></div>
+
+  <h2 id="get-link">First, get your Google review link</h2>
+<p>This is the whole trick, so I'll slow down here. Your review link is the address that drops a customer straight on the star-rating screen for your business, no searching, no scrolling past your website first. Get that link right and the rest takes two minutes. There are two reliable ways to find it, and either one works.</p>
+<h3>Option A: copy it from your Business Profile</h3>
+<p>Go to your Google Business Profile at <code>business.google.com</code>, or open the profile card straight from Google Search or Maps while you're signed in as the owner. Look for the "Get more reviews" or "Ask for reviews" card and copy the short review link Google hands you. It usually looks like <code>g.page/r/...</code>. That link opens the review box directly. This is the easy path if you're already signed in and you just want to be done.</p>
+<h3>Option B: build it from your Place ID</h3>
+<p>If you'd rather not hunt through the dashboard, use the Place ID method. Find your business's Place ID with Google's Place ID Finder, then drop it into this pattern:</p>
+<p><code>https://search.google.com/local/writereview?placeid=YOUR_PLACE_ID</code></p>
+<p>Swap <code>YOUR_PLACE_ID</code> for the ID Google gives you, and that link opens the review box the same way. Either option lands the customer on the star-rating screen. Test whichever link you pick on your own phone first, before it goes anywhere near a QR code.</p>
+
+  <h2 id="make-code">Make the static code (2 minutes)</h2>
+<p>Once you have a working review link, the code itself is quick. Open <a href="../../">the tool</a>, go to the <strong>Website link</strong> tab, and paste your review link in. That's the input the tool encodes, so your <code>g.page/r/...</code> or <code>search.google.com/local/writereview</code> link goes right in there.</p>
+<p>Add your brand colors and drop your logo in the center if you want it to look like yours (a center logo bumps the error correction up automatically, so the code still scans with the logo sitting on top). The tool shows a plain-English contrast warning before you download if your colors are too light to read, which saves you from printing a code that no phone can lock onto. Then download a PNG at up to 4000px, or grab the SVG if your printer asked for vector. It all happens in your browser. No account, nothing uploaded, and the review link lives inside the pattern instead of on my server.</p>
+
+  <h2 id="where">Where to put it</h2>
+<p>The best spot is wherever a happy customer is already standing with their phone out. That's the moment you want to catch. Good homes for the code:</p>
+<ul>
+<li>Table tents on each table or the bar</li>
+<li>A counter card by the register</li>
+<li>The bottom of the printed receipt</li>
+<li>A "leave us a review" window decal</li>
+<li>Thank-you cards and packaging inserts</li>
+</ul>
+<p>Keep the printed code around 1.2 to 2 inches on a card or receipt, and leave the quiet margin around it (the tool includes that white border for you, so don't crop it off). Then do the one step people skip: print the actual piece and scan it with your own phone. A code that looks fine on screen can still fail once it's shrunk onto a receipt. If a print won't scan, the <a href="../why-wont-my-qr-code-scan/">reasons a QR code won't scan</a> guide walks through the usual culprits, and the <a href="../how-big-should-a-qr-code-be-for-print/">print size guide</a> has the numbers for bigger signage.</p>
+
+  <h2 id="why-static">Why static is the right call here</h2>
+<p>You print a review code once and leave it out for years, so you want it to keep working for years. A static code encodes your review link directly into the pattern, which means there's no redirect server in the middle and nothing to renew. It doesn't expire the way a subscription-based dynamic code does, where the printed pattern goes dead the day you stop paying the vendor. I wrote the full breakdown of that difference in <a href="../do-qr-codes-expire/">do QR codes expire</a>, but the short version: your Google review link is stable, so a static code pointed at it just keeps working. This is the same logic behind putting a <a href="../qr-code-for-a-restaurant-menu/">QR code on a restaurant menu</a>, which faces the exact same counter, so if you run a place that does both, make them the same way.</p>
+
+  <h2 id="honest-rules">The honest rules</h2>
+<p>I'd rather set the expectation straight than oversell this. The code opens the review box. It does not post the review. The customer still taps the stars, writes whatever they write, and hits submit themselves, and they'll be prompted to sign in to Google to do it. You cannot post a review for someone, and you shouldn't try.</p>
+<p>One more, and it matters: <strong>do not offer discounts, free items, or any other reward for leaving a review.</strong> Google's policy prohibits incentivized reviews, and reviews collected that way can get removed, which undoes the whole point. The move that actually works is boring and legitimate. Make leaving a review one scan away, and ask honestly at the moment someone's happy. That's the entire strategy, and it's plenty.</p>
+  <div class="note"><b>Worth being clear:</b> the review link opens the form, but the customer has to be signed into Google and tap submit. You're making it one scan away, not automatic.</div>
+
+  <h2 id="faq">FAQ</h2>
+  <div class="faq"><details><summary>How do I make a QR code for Google reviews for free?</summary><p>Get your review link from your Google Business Profile, paste it into the tool, and download the code. Free, no account.</p></details><details><summary>Where do I find my Google review link?</summary><p>In your Google Business Profile, open the "Get more reviews" or "Ask for reviews" card and copy the short link. Or find your Place ID with Google's Place ID Finder and use search.google.com/local/writereview?placeid=YOUR_PLACE_ID.</p></details><details><summary>Does a Google review QR code expire?</summary><p>Not a static one. It encodes your review link directly, so it keeps working as long as your business profile exists. There is no subscription to lapse.</p></details><details><summary>Can I put it on a receipt or table tent?</summary><p>Yes. Table tents, counter cards, receipts, thank-you cards, and packaging all work. Keep it about 1.2 to 2 inches with the quiet margin and test-scan the print.</p></details><details><summary>Can I offer a discount for leaving a review?</summary><p>No. Google's policy prohibits incentivizing reviews and it can get your reviews removed. Make it easy to find and ask honestly instead.</p></details><details><summary>Will it work if the customer is not signed into Google?</summary><p>The code opens the review box, and they will be prompted to sign in to Google to post. You cannot post the review for them.</p></details></div>
+  <div class="cta">
+    <h2>Make your review code</h2>
+    <p>QR Codes Made Easy turns your Google review link into a static code right in your browser. Free, no account, and the code never expires.</p>
+    <a class="btn" href="../../">Build your QR code</a>
+  </div>
+</article>
+<footer>
+<div class="wrap foot-grid">
+<div class="foot-left">
+<a class="wordmark" href="../../">QR Codes Made Easy<span class="dot">.</span></a>
+<p>Codes generated in your browser. They never expire. We never see your data. Built to make a point, free to keep it honest.</p>
+</div>
+<div class="foot-links">
+<a href="../">All guides</a>
+<a href="https://www.paypal.com/paypalme/aboundlessworld" target="_blank" rel="noopener">&#9829; Tip the developer</a>
+<span style="font-weight:600;color:var(--ink-soft)">Built by Bud Hennekes</span>
+</div>
+</div>
+<div class="wrap foot-note">No cookies, no ad trackers, no accounts. Just a QR code that works.</div>
+</footer>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "How to Make a QR Code for Google Reviews", "description": "Make a free QR code that opens your Google review form so customers leave a review in seconds. Get your review link, make a static code, print it. Never expires.", "datePublished": "2026-07-09", "dateModified": "2026-07-09", "author": {"@type": "Person", "name": "Bud Hennekes", "url": "https://qrcodemadeeasy.com/"}, "publisher": {"@type": "Organization", "name": "QR Codes Made Easy", "url": "https://qrcodemadeeasy.com/"}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://qrcodemadeeasy.com/guides/qr-code-for-google-reviews/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://qrcodemadeeasy.com/"}, {"@type": "ListItem", "position": 2, "name": "Guides", "item": "https://qrcodemadeeasy.com/guides/"}, {"@type": "ListItem", "position": 3, "name": "QR code for Google reviews", "item": "https://qrcodemadeeasy.com/guides/qr-code-for-google-reviews/"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How do I make a QR code for Google reviews for free?", "acceptedAnswer": {"@type": "Answer", "text": "Get your review link from your Google Business Profile, paste it into the tool, and download the code. Free, no account."}}, {"@type": "Question", "name": "Where do I find my Google review link?", "acceptedAnswer": {"@type": "Answer", "text": "In your Google Business Profile, open the \"Get more reviews\" or \"Ask for reviews\" card and copy the short link. Or find your Place ID with Google's Place ID Finder and use search.google.com/local/writereview?placeid=YOUR_PLACE_ID."}}, {"@type": "Question", "name": "Does a Google review QR code expire?", "acceptedAnswer": {"@type": "Answer", "text": "Not a static one. It encodes your review link directly, so it keeps working as long as your business profile exists. There is no subscription to lapse."}}, {"@type": "Question", "name": "Can I put it on a receipt or table tent?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Table tents, counter cards, receipts, thank-you cards, and packaging all work. Keep it about 1.2 to 2 inches with the quiet margin and test-scan the print."}}, {"@type": "Question", "name": "Can I offer a discount for leaving a review?", "acceptedAnswer": {"@type": "Answer", "text": "No. Google's policy prohibits incentivizing reviews and it can get your reviews removed. Make it easy to find and ask honestly instead."}}, {"@type": "Question", "name": "Will it work if the customer is not signed into Google?", "acceptedAnswer": {"@type": "Answer", "text": "The code opens the review box, and they will be prompted to sign in to Google to post. You cannot post the review for them."}}]}</script>
+<!-- Cloudflare Web Analytics (cookieless, no personal data) --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e699a778c1664635913d24d7c1367fc9"}'></script>
+</body>
+</html>
