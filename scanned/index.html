@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#f5f7f6;--ink:#14201c;--soft:#586661;--accent:#0aa88a;--accentd:#0a8768;--accent2:#12b3b6;--line:#e1e8e4;}
+  :root{--paper:#f5f7f6;--ink:#14201c;--soft:#586661;--accent:#2563eb;--accentd:#1d4ed8;--accent2:#38bdf8;--line:#e1e8e4;}
   *{margin:0;padding:0;box-sizing:border-box}
   body{
     font-family:"Public Sans",-apple-system,sans-serif;background:var(--paper);color:var(--ink);
@@ -19,7 +19,7 @@
     line-height:1.6;overflow:hidden;position:relative;
   }
   body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
-    background:radial-gradient(1100px 520px at 84% -10%,rgba(18,179,182,.08),transparent 60%),radial-gradient(900px 460px at -5% 2%,rgba(10,168,138,.06),transparent 55%)}
+    background:radial-gradient(1100px 520px at 84% -10%,rgba(56,189,248,.08),transparent 60%),radial-gradient(900px 460px at -5% 2%,rgba(37,99,235,.06),transparent 55%)}
   .card{max-width:440px;width:100%;text-align:center;position:relative;z-index:2}
 
   /* animated check */
@@ -73,7 +73,7 @@
     // a few brand-colored dots drift up once, then it's calm
     (function(){
       if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-      var colors = ["#0aa88a","#12b3b6","#14201c","#0a8768"];
+      var colors = ["#2563eb","#38bdf8","#14201c","#1d4ed8"];
       for (var i=0;i<14;i++){
         var d = document.createElement("div");
         d.className = "dot";

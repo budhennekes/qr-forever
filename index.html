@@ -25,10 +25,10 @@
   --ink:#14201c;
   --ink-soft:#586661;
   --line:#e1e8e4;
-  --accent:#0aa88a;
-  --accent-deep:#0a8768;
-  --accent-2:#12b3b6;
-  --ok:#0a8768;
+  --accent:#2563eb;
+  --accent-deep:#1d4ed8;
+  --accent-2:#38bdf8;
+  --ok:#1d4ed8;
   --warn-bg:#fdf0e3;
   --warn-border:#e8b07a;
   --card:#ffffff;
@@ -50,8 +50,8 @@ body{
 body::before{
   content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
   background:
-    radial-gradient(1100px 520px at 84% -10%, rgba(18,179,182,.07), transparent 60%),
-    radial-gradient(900px 460px at -5% 2%, rgba(10,168,138,.05), transparent 55%);
+    radial-gradient(1100px 520px at 84% -10%, rgba(56,189,248,.07), transparent 60%),
+    radial-gradient(900px 460px at -5% 2%, rgba(37,99,235,.05), transparent 55%);
 }
 .wrap{max-width:1040px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
 
@@ -68,7 +68,7 @@ header{padding:26px 0 0}
 .hero{position:relative;padding:54px 0 34px;text-align:left;max-width:720px}
 .hero::before{
   content:"";position:absolute;z-index:0;top:-46px;left:0;right:0;height:320px;pointer-events:none;
-  background:radial-gradient(58% 92% at 76% 26%, rgba(18,179,182,.22), rgba(10,168,138,0) 70%);
+  background:radial-gradient(58% 92% at 76% 26%, rgba(56,189,248,.22), rgba(37,99,235,0) 70%);
 }
 .hero h1,.hero p,.hero .badges{position:relative;z-index:2}
 .hero h1{
@@ -389,7 +389,7 @@ footer{margin-top:80px;border-top:2px solid var(--ink);padding:30px 0 46px}
 
 /* ---------- whimsy ---------- */
 .qr-frame.is-demo{animation:demopulse 2.8s ease-in-out infinite}
-@keyframes demopulse{0%,100%{box-shadow:0 2px 10px rgba(20,32,28,.08)}50%{box-shadow:0 2px 10px rgba(20,32,28,.08),0 0 0 7px rgba(10,168,138,.11)}}
+@keyframes demopulse{0%,100%{box-shadow:0 2px 10px rgba(20,32,28,.08)}50%{box-shadow:0 2px 10px rgba(20,32,28,.08),0 0 0 7px rgba(37,99,235,.11)}}
 .wink{margin-top:10px;font-size:13px;color:var(--accent-deep);background:var(--paper-deep);border:1px solid var(--line);border-radius:10px;padding:9px 12px;line-height:1.45}
 .wordmark .dot{cursor:pointer;display:inline-block}
 .wordmark .dot.pop{animation:dotpop .5s ease}
@@ -419,9 +419,9 @@ input[type="url"],input[type="tel"],input.wa-message,#tg-input,.cc-select,#png-s
   transition:border-color 150ms var(--ease-out),box-shadow 150ms var(--ease-out)
 }
 input[type="url"]:focus,input[type="tel"]:focus,input.wa-message:focus,#tg-input:focus,.cc-select:focus,#png-size:focus,.embed-box textarea:focus{
-  border-color:var(--accent);box-shadow:0 0 0 3px rgba(10,168,138,.16)
+  border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.16)
 }
-.color-input:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px rgba(10,168,138,.16)}
+.color-input:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.16)}
 
 /* keyboard-only focus rings (mouse/touch stay clean) */
 .btn:focus-visible,.type-tab:focus-visible,.preset:focus-visible,.swap-btn:focus-visible,.file-btn:focus-visible,.reset-btn:focus-visible,.embed-copy:focus-visible,.logo-clear:focus-visible,.btn-donate:focus-visible,.print-card:focus-visible,.masthead nav a:focus-visible,.transparent-row input:focus-visible{
@@ -717,8 +717,8 @@ input[type="url"]:focus,input[type="tel"]:focus,input.wa-message:focus,#tg-input
   <div class="product">
     <svg class="product-cover" viewBox="0 0 170 222" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The Brand Field Guide to QR Codes">
       <rect width="170" height="222" rx="6" fill="#14201c"/>
-      <rect x="0" y="0" width="7" height="222" rx="3" fill="#0aa88a"/>
-      <text x="24" y="42" fill="#0aa88a" font-family="Public Sans,sans-serif" font-size="9" font-weight="700" letter-spacing="2">FIELD GUIDE</text>
+      <rect x="0" y="0" width="7" height="222" rx="3" fill="#2563eb"/>
+      <text x="24" y="42" fill="#2563eb" font-family="Public Sans,sans-serif" font-size="9" font-weight="700" letter-spacing="2">FIELD GUIDE</text>
       <text x="24" y="86" fill="#f5f7f6" font-family="Georgia,serif" font-size="19" font-weight="700">QR codes</text>
       <text x="24" y="108" fill="#f5f7f6" font-family="Georgia,serif" font-size="19" font-weight="700">that get</text>
       <text x="24" y="130" fill="#f5f7f6" font-family="Georgia,serif" font-size="19" font-weight="700">scanned</text>
@@ -1365,7 +1365,7 @@ input[type="url"]:focus,input[type="tel"]:focus,input.wa-message:focus,#tg-input
       if (raining) return;
       if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
       raining = true;
-      var colors = ["#0aa88a","#12b3b6","#14201c","#0a8768"];
+      var colors = ["#2563eb","#38bdf8","#14201c","#1d4ed8"];
       for (var i = 0; i < 20; i++){
         var t = document.createElement("div");
         t.className = "qr-tile";
@@ -1387,12 +1387,12 @@ input[type="url"]:focus,input[type="tel"]:focus,input.wa-message:focus,#tg-input
   checkContrast();
 
   window.bud = function(){
-    console.log("%cQR Codes Made Easy", "font:600 16px sans-serif;color:#0aa88a");
+    console.log("%cQR Codes Made Easy", "font:600 16px sans-serif;color:#2563eb");
     console.log("Static codes, baked straight into the pattern. No server, no account, nothing to expire. I built it to make a point, and to be useful while I did. If it saved you a reprint, the tip jar's in the footer. Cheers, Bud.");
     return "✓ still scanning in 2035";
   };
 
-  console.log("%cQR Codes Made Easy", "font:600 16px sans-serif;color:#0aa88a");
+  console.log("%cQR Codes Made Easy", "font:600 16px sans-serif;color:#2563eb");
   console.log("Yep, your codes are built right here in your browser. Your links and logo never touch a server. The only thing we count is anonymous, cookieless page views. Snoop all you like, and type bud() if you're bored. Made by Bud.");
 })();
 </script>
