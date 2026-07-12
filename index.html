@@ -124,6 +124,10 @@ input[type="url"]:focus, input[type="tel"]:focus, input.wa-message:focus, #tg-in
 .type-tab.active{background:var(--card);color:var(--ink);box-shadow:0 1px 3px rgba(27,25,19,.08)}
 .wa-row{display:flex;flex-direction:column;gap:8px}
 .wa-message{margin-top:8px}
+.field{width:100%;font-family:var(--sans);font-size:16px;padding:13px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);transition:border-color 150ms var(--ease-out),box-shadow 150ms var(--ease-out)}
+.field:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.16)}
+.wifi-hidden-row{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:13.5px;font-weight:600;color:var(--ink-soft);cursor:pointer}
+.wifi-hidden-row input{accent-color:var(--accent);width:15px;height:15px;cursor:pointer}
 
 /* presets */
 .presets{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
@@ -485,10 +489,12 @@ input[type="url"]:focus,input[type="tel"]:focus,input.wa-message:focus,#tg-input
       <div class="control-group">
         <span class="field-label"><span class="step-num">1</span>What should it open?</span>
         <div class="type-tabs" id="type-tabs">
-          <button class="type-tab active" data-type="link" type="button">Website link</button>
+          <button class="type-tab active" data-type="link" type="button">Website</button>
           <button class="type-tab" data-type="whatsapp" type="button">WhatsApp</button>
           <button class="type-tab" data-type="telegram" type="button">Telegram</button>
           <button class="type-tab" data-type="imessage" type="button">iMessage</button>
+          <button class="type-tab" data-type="wifi" type="button">Wi-Fi</button>
+          <button class="type-tab" data-type="vcard" type="button">Contact</button>
         </div>
         <div id="pane-link">
           <input type="url" id="url-input" placeholder="https://yourbrand.com" value="" autocomplete="off" spellcheck="false">
@@ -513,6 +519,27 @@ input[type="url"]:focus,input[type="tel"]:focus,input.wa-message:focus,#tg-input
           </div>
           <input type="text" id="im-message" class="wa-message" placeholder="Pre-filled message (optional)" autocomplete="off" maxlength="300">
           <p class="hint">Opens a text to your number: blue <b>iMessage</b> between Apple devices, a normal SMS everywhere else. <a href="guides/qr-code-for-imessage/" style="color:var(--accent-deep);font-weight:600">iMessage guide →</a></p>
+        </div>
+        <div id="pane-wifi" hidden>
+          <input type="text" id="wifi-ssid" class="field" placeholder="Network name (SSID)" autocomplete="off" spellcheck="false">
+          <input type="text" id="wifi-pass" class="field" style="margin-top:8px" placeholder="Wi-Fi password" autocomplete="off" spellcheck="false">
+          <div class="wa-row" style="margin-top:8px">
+            <select id="wifi-enc" class="cc-select" aria-label="Wi-Fi security">
+              <option value="WPA">WPA / WPA2 / WPA3</option>
+              <option value="WEP">WEP</option>
+              <option value="nopass">No password (open)</option>
+            </select>
+          </div>
+          <label class="wifi-hidden-row"><input type="checkbox" id="wifi-hidden"> Hidden network</label>
+          <p class="hint">Scanning joins the network, no typing a password. The details are baked into the static code, so if you change the password you reprint it. Nothing leaves your device.</p>
+        </div>
+        <div id="pane-vcard" hidden>
+          <input type="text" id="vc-name" class="field" placeholder="Full name" autocomplete="off" spellcheck="false">
+          <input type="tel" id="vc-phone" class="field" style="margin-top:8px" placeholder="Phone" autocomplete="off" spellcheck="false">
+          <input type="email" id="vc-email" class="field" style="margin-top:8px" placeholder="Email" autocomplete="off" spellcheck="false">
+          <input type="text" id="vc-org" class="field" style="margin-top:8px" placeholder="Company (optional)" autocomplete="off" spellcheck="false">
+          <input type="url" id="vc-url" class="field" style="margin-top:8px" placeholder="Website (optional)" autocomplete="off" spellcheck="false">
+          <p class="hint">Scanning saves your details straight to their phone contacts. Perfect on a business card. <a href="guides/qr-code-for-a-business-card/" style="color:var(--accent-deep);font-weight:600">Business card guide →</a></p>
         </div>
       </div>
 
@@ -903,6 +930,8 @@ input[type="url"]:focus,input[type="tel"]:focus,input.wa-message:focus,#tg-input
     imCode: "1",         // imessage country dial code
     imNumber: "",
     imMessage: "",
+    wifiSsid: "", wifiPass: "", wifiEnc: "WPA", wifiHidden: false,
+    vcName: "", vcPhone: "", vcEmail: "", vcOrg: "", vcUrl: "",
     preset: "classic",
     fg: "#1b1913",
     bg: "#ffffff",
@@ -944,6 +973,28 @@ input[type="url"]:focus,input[type="tel"]:focus,input.wa-message:focus,#tg-input
       var s = "sms:+" + imDigits;
       if (state.imMessage.trim()) s += "?&body=" + encodeURIComponent(state.imMessage.trim());
       return s;
+    }
+    if (state.type === "wifi"){
+      var ssid = state.wifiSsid.trim();
+      if (!ssid) return "";
+      // the WIFI: URI needs \ ; , : " escaped
+      var esc = function(v){ return v.replace(/([\\;,:"])/g, "\\$1"); };
+      var w = "WIFI:T:" + state.wifiEnc + ";S:" + esc(ssid) + ";";
+      if (state.wifiEnc !== "nopass") w += "P:" + esc(state.wifiPass) + ";";
+      if (state.wifiHidden) w += "H:true;";
+      return w + ";";
+    }
+    if (state.type === "vcard"){
+      var nm = state.vcName.trim();
+      if (!nm && !state.vcPhone.trim() && !state.vcEmail.trim()) return "";
+      var v = ["BEGIN:VCARD", "VERSION:3.0"];
+      if (nm){ v.push("N:" + nm); v.push("FN:" + nm); }
+      if (state.vcOrg.trim()) v.push("ORG:" + state.vcOrg.trim());
+      if (state.vcPhone.trim()) v.push("TEL;TYPE=CELL:" + state.vcPhone.trim());
+      if (state.vcEmail.trim()) v.push("EMAIL:" + state.vcEmail.trim());
+      if (state.vcUrl.trim()) v.push("URL:" + state.vcUrl.trim());
+      v.push("END:VCARD");
+      return v.join("\n");
     }
     return state.url;
   }
@@ -1068,7 +1119,7 @@ input[type="url"]:focus,input[type="tel"]:focus,input.wa-message:focus,#tg-input
   fillCountries(document.getElementById("wa-country"));
   fillCountries(document.getElementById("im-country"));
 
-  var PANES = ["link","whatsapp","telegram","imessage"];
+  var PANES = ["link","whatsapp","telegram","imessage","wifi","vcard"];
   document.querySelectorAll(".type-tab").forEach(function(tab){
     tab.addEventListener("click", function(){
       document.querySelectorAll(".type-tab").forEach(function(t){ t.classList.remove("active"); });
@@ -1092,6 +1143,21 @@ input[type="url"]:focus,input[type="tel"]:focus,input.wa-message:focus,#tg-input
   });
   document.getElementById("im-number").addEventListener("input", function(e){ state.imNumber = e.target.value; refresh(); });
   document.getElementById("im-message").addEventListener("input", function(e){ state.imMessage = e.target.value; refresh(); });
+
+  document.getElementById("wifi-ssid").addEventListener("input", function(e){ state.wifiSsid = e.target.value; refresh(); });
+  document.getElementById("wifi-pass").addEventListener("input", function(e){ state.wifiPass = e.target.value; refresh(); });
+  document.getElementById("wifi-enc").addEventListener("change", function(e){
+    state.wifiEnc = e.target.value;
+    // an open network has no password field
+    document.getElementById("wifi-pass").style.display = (state.wifiEnc === "nopass") ? "none" : "";
+    refresh();
+  });
+  document.getElementById("wifi-hidden").addEventListener("change", function(e){ state.wifiHidden = e.target.checked; refresh(); });
+  document.getElementById("vc-name").addEventListener("input", function(e){ state.vcName = e.target.value; refresh(); });
+  document.getElementById("vc-phone").addEventListener("input", function(e){ state.vcPhone = e.target.value; refresh(); });
+  document.getElementById("vc-email").addEventListener("input", function(e){ state.vcEmail = e.target.value; refresh(); });
+  document.getElementById("vc-org").addEventListener("input", function(e){ state.vcOrg = e.target.value; refresh(); });
+  document.getElementById("vc-url").addEventListener("input", function(e){ state.vcUrl = e.target.value; refresh(); });
 
   document.querySelectorAll(".preset").forEach(function(btn){
     btn.addEventListener("click", function(){
@@ -1187,6 +1253,8 @@ input[type="url"]:focus,input[type="tel"]:focus,input.wa-message:focus,#tg-input
     if (state.type === "whatsapp") return "qr-whatsapp";
     if (state.type === "telegram") return "qr-telegram";
     if (state.type === "imessage") return "qr-text";
+    if (state.type === "wifi") return "qr-wifi";
+    if (state.type === "vcard") return "qr-contact";
     var host = "qr-code";
     try { if (state.url) host = new URL(state.url).hostname.replace(/^www\./,"").replace(/\./g,"-"); } catch(e){}
     return "qr-" + host;
