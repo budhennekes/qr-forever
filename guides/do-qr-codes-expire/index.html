@@ -16,6 +16,10 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://qrcodemadeeasy.com/guides/do-qr-codes-expire/og.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.png" type="image/png" sizes="96x96">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#14201c">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&display=swap">
@@ -99,6 +103,27 @@ footer{border-top:2px solid var(--ink);margin-top:44px;padding:28px 0 40px}
 .nextstep .links a{display:inline-block;font-weight:600;color:var(--accent-deep);text-decoration:none;font-size:15px}
 .nextstep .links a:hover{text-decoration:underline}
 .nextstep .aff-mini{font-size:12px;color:var(--ink-soft);margin:8px 0 0;font-style:italic}
+
+/* depth + mobile polish */
+.answer,.toc,.nextstep,.g-card,.tbl-wrap table{box-shadow:0 1px 2px rgba(20,32,28,.03),0 12px 30px -22px rgba(20,32,28,.14)}
+.featured{box-shadow:0 2px 8px rgba(20,32,28,.08),0 22px 48px -24px rgba(20,32,28,.32)}
+.cta,.cta-band{box-shadow:0 18px 44px -24px rgba(20,32,28,.4)}
+@media (max-width:600px){
+  .wrap{padding:0 18px}
+  article{padding:26px 0 10px}
+  h1{font-size:29px}
+  .byline{margin-bottom:20px;padding-bottom:16px}
+  .featured{border-radius:12px;margin:0 0 22px}
+  .answer{padding:16px 18px;font-size:16.5px}
+  .answer .big{font-size:18px}
+  .toc{padding:14px 16px}
+  article h2{font-size:23px;margin:30px 0 10px}
+  .masthead{flex-direction:column;align-items:flex-start;gap:10px}
+  .masthead nav{display:flex;gap:16px;margin-left:0;overflow-x:auto;max-width:100%;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .masthead nav::-webkit-scrollbar{display:none}
+  .masthead nav a{margin-left:0;white-space:nowrap;flex:none}
+  .foot-links{text-align:left}
+}
 </style>
 </head>
 <body>
@@ -141,6 +166,33 @@ footer{border-top:2px solid var(--ink);margin-top:44px;padding:28px 0 40px}
 <tr><td>Depends on a company staying alive</td><td>No</td><td>Yes</td></tr>
 </tbody>
 </table></div>
+<figure class="diagram-flow" style="margin:0 0 24px" role="img" aria-label="Diagram comparing a static QR code, which points directly at your website, with a dynamic QR code, which routes through a vendor server that dies when the subscription lapses">
+<svg viewBox="0 0 720 240" style="width:100%;height:auto;display:block" xmlns="http://www.w3.org/2000/svg">
+  <style>.lbl{font:600 15px 'Public Sans',sans-serif}.sm{font:600 12px 'Public Sans',sans-serif}</style>
+  <text x="16" y="30" class="lbl" fill="#14201c">Static code</text>
+  <rect x="16" y="44" width="150" height="52" rx="10" fill="#ffffff" stroke="#e1e8e4"/>
+  <text x="91" y="75" class="sm" fill="#14201c" text-anchor="middle">Printed code</text>
+  <line x1="176" y1="70" x2="330" y2="70" stroke="#2563eb" stroke-width="3"/>
+  <polygon points="338,70 324,63 324,77" fill="#2563eb"/>
+  <rect x="348" y="44" width="150" height="52" rx="10" fill="#2563eb"/>
+  <text x="423" y="75" class="sm" fill="#ffffff" text-anchor="middle">Your website</text>
+  <text x="530" y="75" class="sm" fill="#1d4ed8">works forever</text>
+  <text x="16" y="150" class="lbl" fill="#14201c">Dynamic code</text>
+  <rect x="16" y="164" width="150" height="52" rx="10" fill="#ffffff" stroke="#e1e8e4"/>
+  <text x="91" y="195" class="sm" fill="#14201c" text-anchor="middle">Printed code</text>
+  <line x1="176" y1="190" x2="242" y2="190" stroke="#586661" stroke-width="3" stroke-dasharray="6 5"/>
+  <polygon points="250,190 236,183 236,197" fill="#586661"/>
+  <rect x="260" y="164" width="170" height="52" rx="10" fill="#e9eeec" stroke="#e1e8e4"/>
+  <text x="345" y="187" class="sm" fill="#14201c" text-anchor="middle">Vendor server</text>
+  <text x="345" y="205" class="sm" fill="#586661" text-anchor="middle">(needs subscription)</text>
+  <line x1="440" y1="190" x2="506" y2="190" stroke="#586661" stroke-width="3" stroke-dasharray="6 5"/>
+  <polygon points="514,190 500,183 500,197" fill="#586661"/>
+  <rect x="524" y="164" width="150" height="52" rx="10" fill="#ffffff" stroke="#e1e8e4"/>
+  <text x="599" y="195" class="sm" fill="#14201c" text-anchor="middle">Your website</text>
+  <text x="260" y="238" class="sm" fill="#b91c1c">dies when the plan lapses</text>
+</svg>
+<figcaption style="font-size:13px;color:#586661;margin-top:8px">The whole difference: what sits between the scan and your site.</figcaption>
+</figure>
 
 <h2 id="ten-second-test">The 10-second test to tell which one you have</h2>
 <p>You don't need to understand any of the technical parts to check your own codes. Just ask three questions.</p>
