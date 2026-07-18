@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /scanned/
+
+Sitemap: https://qrcodemadeeasy.com/sitemap.xml

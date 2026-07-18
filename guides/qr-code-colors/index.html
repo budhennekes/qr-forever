@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QR Code Colors That Actually Scan (and the Combos That Fail)</title>
+<meta name="description" content="Which QR code color combos scan reliably and which quietly fail: contrast rules, why inverted codes break, and how to brand your code without killing it.">
+<link rel="canonical" href="https://qrcodemadeeasy.com/guides/qr-code-colors/">
+<meta name="author" content="Bud Hennekes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="QR Code Colors That Actually Scan (and the Combos That Fail)">
+<meta property="og:description" content="Which QR code color combos scan reliably and which quietly fail: contrast rules, why inverted codes break, and how to brand your code without killing it.">
+<meta property="og:url" content="https://qrcodemadeeasy.com/guides/qr-code-colors/">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&display=swap"></noscript>
+<style>
+:root{
+  --paper:#f5f7f6; --paper-deep:#e9eeec; --ink:#14201c; --ink-soft:#586661;
+  --line:#e1e8e4; --accent:#2563eb; --accent-deep:#1d4ed8; --ok:#1d4ed8;
+  --warn-bg:#fdf0e3; --warn-border:#e8b07a; --card:#ffffff; --radius:16px;
+  --serif:"Fraunces",Georgia,serif; --sans:"Public Sans",-apple-system,"Helvetica Neue",sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.65;font-size:16px}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+  background:radial-gradient(1100px 520px at 84% -10%,rgba(56,189,248,.07),transparent 60%),radial-gradient(900px 460px at -5% 2%,rgba(37,99,235,.05),transparent 55%)}
+.wrap{max-width:760px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+header{padding:26px 0 0}
+.masthead{display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-bottom:2px solid var(--ink);padding-bottom:14px}
+.wordmark{font-family:var(--serif);font-weight:700;font-size:22px;letter-spacing:-.01em;text-decoration:none;color:var(--ink)}
+.wordmark .dot{color:var(--accent)}
+.masthead nav{font-size:13px;font-weight:600}
+.masthead nav a{color:var(--ink-soft);text-decoration:none;margin-left:18px}
+.masthead nav a:hover{color:var(--accent)}
+article{padding:34px 0 10px}
+.crumbs{font-size:13px;color:var(--ink-soft);margin-bottom:22px}
+.crumbs a{color:var(--ink-soft);text-decoration:none}
+.crumbs a:hover{color:var(--accent)}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+h1{font-family:var(--serif);font-weight:600;letter-spacing:-.02em;font-size:clamp(30px,4.6vw,44px);line-height:1.1;margin-bottom:14px}
+.byline{font-size:14px;color:var(--ink-soft);margin-bottom:26px;padding-bottom:22px;border-bottom:1px solid var(--line)}
+.byline b{color:var(--ink);font-weight:600}
+article h2{font-family:var(--serif);font-weight:600;font-size:26px;letter-spacing:-.01em;margin:38px 0 12px;line-height:1.2}
+article h3{font-size:18px;font-weight:700;margin:24px 0 8px}
+article p{margin:0 0 16px}
+article p a,article li a{color:var(--accent-deep);text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
+article ul,article ol{margin:0 0 18px;padding-left:22px}
+article li{margin:0 0 8px}
+strong{font-weight:700}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;background:var(--paper-deep);border:1px solid var(--line);border-radius:5px;padding:1px 5px;overflow-wrap:anywhere}
+.tbl-wrap{overflow-x:auto;margin:0 0 24px}
+table{border-collapse:collapse;width:100%;font-size:15px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--paper-deep);font-weight:700;font-size:13px}
+tr:last-child td{border-bottom:none}
+.answer{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:var(--radius);padding:20px 22px;margin:0 0 26px;font-size:18px}
+.answer p{margin:0 0 10px}
+.answer p:last-child{margin:0}
+.answer .big{font-family:var(--serif);font-weight:600;font-size:20px;color:var(--ink);line-height:1.4}
+.toc{background:var(--paper-deep);border:1px solid var(--line);border-radius:var(--radius);padding:16px 20px;margin:0 0 30px;font-size:14px}
+.toc b{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:8px}
+.toc a{color:var(--ink);text-decoration:none;display:inline}
+.toc a:hover{color:var(--accent)}
+.toc ol{margin:0;padding-left:18px}
+.toc li{margin:0 0 4px}
+.note{background:var(--warn-bg);border:1px solid var(--warn-border);border-radius:var(--radius);padding:16px 20px;margin:0 0 24px;font-size:15px}
+.note b{color:var(--accent-deep)}
+.faq{margin-top:10px}
+.faq details{border-bottom:1px solid var(--line);padding:14px 0}
+.faq summary{font-weight:700;cursor:pointer;font-size:17px;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{content:"+";color:var(--accent);font-weight:700;margin-right:10px}
+.faq details[open] summary::before{content:"\2013"}
+.faq details p{margin:12px 0 0;color:var(--ink-soft)}
+.cta{background:var(--ink);color:var(--paper);border-radius:var(--radius);padding:26px 26px;margin:36px 0 10px;text-align:center}
+.cta h2{font-family:var(--serif);color:var(--paper);margin:0 0 8px;font-size:24px}
+.cta p{color:#cfc7b8;margin:0 0 16px;font-size:15px}
+.cta a.btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;font-weight:700;padding:11px 22px;border-radius:999px;font-size:15px}
+.cta a.btn:hover{background:var(--accent-deep)}
+footer{border-top:2px solid var(--ink);margin-top:44px;padding:28px 0 40px}
+.foot-grid{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.foot-left{max-width:420px}
+.foot-left p{font-size:13px;color:var(--ink-soft);margin-top:8px}
+.foot-links{display:flex;flex-direction:column;gap:8px;font-size:13px;text-align:right}
+.foot-links a{color:var(--accent);text-decoration:none;font-weight:600}
+.foot-note{font-size:12px;color:var(--ink-soft);margin-top:20px}
+.nextstep{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:var(--radius);padding:18px 22px;margin:26px 0}
+.nextstep b{display:block;font-family:var(--serif);font-weight:600;font-size:17px;margin-bottom:6px;color:var(--ink)}
+.nextstep p{margin:0 0 10px;font-size:15px;color:var(--ink-soft)}
+.nextstep .links a{display:inline-block;font-weight:600;color:var(--accent-deep);text-decoration:none;font-size:15px}
+.nextstep .links a:hover{text-decoration:underline}
+.nextstep .aff-mini{font-size:12px;color:var(--ink-soft);margin:8px 0 0;font-style:italic}
+</style>
+</head>
+<body>
+<header class="wrap">
+  <div class="masthead">
+    <a class="wordmark" href="../../">QR Codes Made Easy<span class="dot">.</span></a>
+    <nav>
+      <a href="../../">The tool</a>
+      <a href="../">Guides</a>
+      <a href="../../#faq">FAQ</a>
+      <a href="../../#support" style="color:var(--accent)">&#9829; Tip</a>
+    </nav>
+  </div>
+</header>
+<article class="wrap">
+  <div class="crumbs"><a href="../../">Home</a> / <a href="../">Guides</a> / QR code colors</div>
+  <div class="eyebrow">Colors &amp; contrast</div>
+  <h1>QR Code Colors That Actually Scan</h1>
+  <div class="byline">By <b>Bud Hennekes</b>, who built <a href="../../">QR Codes Made Easy</a>. Updated July 2026.</div>
+  <div class="answer"><p class="big">You can color a QR code almost anything as long as two rules hold: the pattern must be clearly darker than its background, and the contrast between them must stay strong (the tool I built warns below a 4 to 1 luminance ratio). Dark brand color on white or a pale tint scans great. Light-on-dark, pastel-on-white, and busy backgrounds are where codes quietly die.</p></div>
+  <div class="toc"><b>What's here</b><ol><li><a href="#two-rules">The two rules</a></li><li><a href="#combos">Combos that work, combos that fail</a></li><li><a href="#inverted">Why inverted codes fail</a></li><li><a href="#branding">Branding without breaking it</a></li><li><a href="#print">Print changes the math</a></li></ol></div>
+
+  <h2 id="two-rules">The two rules</h2>
+<p>Every color question about QR codes reduces to two rules. Follow both and you can use nearly any color you like. Break either one and your code will fail for some meaningful slice of the people who point a phone at it.</p>
+<p><strong>Rule one: dark pattern, light background. Never the reverse.</strong> The squares that carry the data should be the dark color, and the space behind them should be the light color. A white pattern on a navy background looks sharp in a mockup and fails on a depressing number of real phones. More on that below.</p>
+<p><strong>Rule two: keep the contrast strong.</strong> It is not enough for the two colors to be different. They have to be different in brightness. A scanner does not see hue the way you do.</p>
+<p>Both rules exist because of one step in how scanning works. Before a phone decodes anything, it <strong>binarizes</strong> the image: it converts every pixel to pure black or pure white based on brightness. Hue gets thrown away entirely. If your two colors end up on the same side of that black-or-white cut, the pattern disappears and there is nothing left to decode. Dark-on-light with strong contrast survives binarization. Everything else is a gamble.</p>
+
+  <h2 id="combos">Combos that work, combos that fail</h2>
+<p>Here is the honest list. The left column is safe to print. The right column is where codes go to die quietly, because they often scan fine on the newest phone in the office and fail on everyone else's.</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>Works</th><th>Fails or risky</th></tr></thead>
+<tbody>
+<tr><td><strong>Black on white.</strong> The reference. Nothing beats it.</td><td><strong>White or yellow pattern on dark.</strong> Inverted. Many scanners cannot read it.</td></tr>
+<tr><td><strong>Navy on white.</strong> Dark enough to read as black after binarization.</td><td><strong>Pastel on white.</strong> Baby blue, mint, blush pink. Too little contrast; the pattern washes out.</td></tr>
+<tr><td><strong>Dark green on white.</strong> Same story. Forest green, not lime.</td><td><strong>Red pattern on green background</strong> (or similar mid-tone pairs). Looks contrasty to your eye, but both colors are similar in brightness, so they binarize to mush.</td></tr>
+<tr><td><strong>Dark red or maroon on white.</strong> Keep the red deep, not fire-engine bright.</td><td><strong>Any photo or gradient behind the code.</strong> The background brightness shifts across the pattern, so parts of the code flip the wrong way.</td></tr>
+<tr><td><strong>Charcoal on cream.</strong> Softer than black on white and still plenty of contrast.</td><td><strong>Glossy gold or metallic foil.</strong> The glare reads as random bright patches and breaks the pattern.</td></tr>
+<tr><td><strong>Dark brand color on a very pale tint of the same color.</strong> Navy on the faintest blue, forest on the faintest green. Cohesive and safe.</td><td>&nbsp;</td></tr>
+</tbody>
+</table></div>
+<p>Notice the theme. The working column is always a genuinely dark color on a genuinely light one. The failing column is either inverted, low contrast, uneven, or shiny. If a combo you are considering fits any of those four words, pick again.</p>
+
+  <h2 id="inverted">Why inverted codes fail</h2>
+<p>The QR spec was built around dark modules on a light background, and scanners were built to expect that. Plenty of modern decoders will try flipping the image and reading it inverted. Plenty of others will not, especially older phones, budget phones, and the embedded scanners built into payment terminals, ticket gates, and warehouse guns.</p>
+<p>That gap is the whole problem. An inverted code is not broken everywhere. It is broken somewhere, and you do not get to choose where. When you print a code, you are printing for every phone that will ever meet it, not just yours. A code that only some phones can read is a broken code in print. There is no partial credit.</p>
+<p>This one is sneaky because your own test will probably pass. You design the white-on-navy code, scan it with your recent iPhone, it works, you send it to the printer. The failures show up later, one confused customer at a time, and nobody tells you.</p>
+<p>This is why <a href="../../">the tool</a> checks for it specifically. If you set a light pattern on a dark background, it warns you before you download, separately from the contrast check, because an inverted code can have perfect contrast and still fail. Use the swap-colors button and the problem is gone in one click.</p>
+
+  <h2 id="branding">Branding without breaking it</h2>
+<p>You do not have to settle for black. Here is the approach I recommend for putting your brand on a code without gambling with it.</p>
+<p><strong>Use your darkest brand color for the pattern.</strong> Most brand palettes have a deep primary: a navy, a forest, an aubergine, a near-black. That is your pattern color. Paste the hex straight into the tool's custom color field.</p>
+<p><strong>Use white or a near-white tint for the background.</strong> Pure white is safest. A very pale tint of your brand color also works and looks more designed. Keep it pale enough that you would call it "basically white" from across the room.</p>
+<p><strong>Put the accent around the code, not in it.</strong> If your brand color is bright orange or teal, it does not belong in the pattern. Use it in the frame, the call-to-action text, or the material the code sits on. The code itself stays dark-on-light, and the design around it does the branding.</p>
+<p><strong>A logo in the middle is fine.</strong> When you add one in the tool, error correction rises to the highest level automatically, so the code can afford the covered area. I wrote up the size limits in the <a href="../qr-code-logo-size/">logo size guide</a>.</p>
+<p><strong>Transparent backgrounds work with one condition.</strong> The tool can export the code with no background at all, which is handy for dropping it onto a designed layout. But whatever surface ends up behind the pattern becomes the background, so that surface has to be solid and light. The tool flags this case too, since it cannot see your final layout for you.</p>
+
+  <h2 id="print">Print changes the math</h2>
+<p>Everything above gets harder on paper. A screen is backlit, so it hands the scanner more contrast than the colors deserve. Paper only reflects whatever light happens to be in the room, and then the printing itself takes a cut.</p>
+<p>Ink spreads slightly as it soaks in, which fattens the dark modules and shrinks the light gaps. Laminate and glossy stock add glare, which reads as bright noise across the pattern. And the room takes the biggest cut of all: a restaurant at dinner is running warm, dim light that flattens every color toward brown. A combo that barely clears the contrast bar on your monitor can fail completely on a table tent under that light.</p>
+<p>So give print a margin of safety. If your combo squeaks past on screen, darken the pattern or lighten the background before you send it out. Then do the only test that actually settles it: <strong>scan the printed proof, in the room where it will live, with the oldest phone you can borrow.</strong> Not the design file. The physical object, in its real light. If something still refuses to scan, the <a href="../why-wont-my-qr-code-scan/">troubleshooting guide</a> walks through the usual suspects, and the <a href="../how-big-should-a-qr-code-be-for-print/">print size guide</a> covers the other half of print reliability.</p>
+  <div class="note"><b>A decent gut check:</b> if you have to squint to tell the pattern from the background at arm's length, a scanner will do worse. Your eye is a decent first test, and the tool's warning is the second.</div>
+
+  <h2 id="faq">FAQ</h2>
+  <div class="faq"><details><summary>Can QR codes be a color other than black?</summary><p>Yes. Any sufficiently dark color works for the pattern as long as it sits on a light background. Navy, dark green, maroon, and charcoal all scan reliably. The pattern color matters much less than the contrast between the pattern and its background.</p></details><details><summary>Can a QR code be white on black?</summary><p>Avoid it. That is an inverted code, and while some scanners handle inversion, many do not, especially older phones and embedded scanners. A code that fails on part of your audience is a broken code in print. Keep the pattern dark and the background light, and do not print an inverted one.</p></details><details><summary>What contrast do I need between the two colors?</summary><p>Keep it strong. The tool warns when the luminance contrast between your two colors drops below a 4 to 1 ratio, and more is safer, especially for print, where ink spread, glare, and dim light all eat into the contrast you started with.</p></details><details><summary>Can I put a QR code over a photo or gradient?</summary><p>No. The area behind the pattern must be a solid light color, including the quiet margin around the code. A photo or gradient shifts brightness across the pattern, so parts of the code binarize the wrong way and the scan fails. Put the code in a solid light box on top of the image instead.</p></details><details><summary>Why does my branded code scan on screen but not in print?</summary><p>Screens are backlit and flatter your colors. On paper, ink spread, glare from laminate or glossy stock, and dim room light all reduce the effective contrast. A combo that barely passes on screen can fail on the printed piece. Test-scan the printed proof in the room where it will live.</p></details><details><summary>Do colored codes work with a logo in the middle?</summary><p>Yes. Color and a logo are separate concerns. When you add a logo in the tool, error correction rises to the highest level automatically to cover the hidden area. Just follow the same color rules: dark pattern, light background, strong contrast.</p></details></div>
+  <div class="cta">
+    <h2>Make a code in your colors</h2>
+    <p>Pick your pattern and background colors right in the browser. The built-in contrast warning catches risky combos before you print them. Free, no account, never expires.</p>
+    <a class="btn" href="../../">Build your QR code</a>
+  </div>
+</article>
+<footer>
+<div class="wrap foot-grid">
+<div class="foot-left">
+<a class="wordmark" href="../../">QR Codes Made Easy<span class="dot">.</span></a>
+<p>Codes generated in your browser. They never expire. We never see your data. Built to make a point, free to keep it honest.</p>
+</div>
+<div class="foot-links">
+<a href="../">All guides</a>
+<a href="https://www.paypal.com/paypalme/aboundlessworld" target="_blank" rel="noopener">&#9829; Tip the developer</a>
+<span style="font-weight:600;color:var(--ink-soft)">Built by Bud Hennekes</span>
+</div>
+</div>
+<div class="wrap foot-note">No cookies, no ad trackers, no accounts. Just a QR code that works.</div>
+</footer>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "QR Code Colors That Actually Scan (and the Combos That Fail)", "description": "Which QR code color combos scan reliably and which quietly fail: contrast rules, why inverted codes break, and how to brand your code without killing it.", "datePublished": "2026-07-13", "dateModified": "2026-07-13", "author": {"@type": "Person", "name": "Bud Hennekes", "url": "https://qrcodemadeeasy.com/"}, "publisher": {"@type": "Organization", "name": "QR Codes Made Easy", "url": "https://qrcodemadeeasy.com/"}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://qrcodemadeeasy.com/guides/qr-code-colors/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://qrcodemadeeasy.com/"}, {"@type": "ListItem", "position": 2, "name": "Guides", "item": "https://qrcodemadeeasy.com/guides/"}, {"@type": "ListItem", "position": 3, "name": "QR code colors", "item": "https://qrcodemadeeasy.com/guides/qr-code-colors/"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Can QR codes be a color other than black?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Any sufficiently dark color works for the pattern as long as it sits on a light background. Navy, dark green, maroon, and charcoal all scan reliably. The pattern color matters much less than the contrast between the pattern and its background."}}, {"@type": "Question", "name": "Can a QR code be white on black?", "acceptedAnswer": {"@type": "Answer", "text": "Avoid it. That is an inverted code, and while some scanners handle inversion, many do not, especially older phones and embedded scanners. A code that fails on part of your audience is a broken code in print. Keep the pattern dark and the background light, and do not print an inverted one."}}, {"@type": "Question", "name": "What contrast do I need between the two colors?", "acceptedAnswer": {"@type": "Answer", "text": "Keep it strong. The tool warns when the luminance contrast between your two colors drops below a 4 to 1 ratio, and more is safer, especially for print, where ink spread, glare, and dim light all eat into the contrast you started with."}}, {"@type": "Question", "name": "Can I put a QR code over a photo or gradient?", "acceptedAnswer": {"@type": "Answer", "text": "No. The area behind the pattern must be a solid light color, including the quiet margin around the code. A photo or gradient shifts brightness across the pattern, so parts of the code binarize the wrong way and the scan fails. Put the code in a solid light box on top of the image instead."}}, {"@type": "Question", "name": "Why does my branded code scan on screen but not in print?", "acceptedAnswer": {"@type": "Answer", "text": "Screens are backlit and flatter your colors. On paper, ink spread, glare from laminate or glossy stock, and dim room light all reduce the effective contrast. A combo that barely passes on screen can fail on the printed piece. Test-scan the printed proof in the room where it will live."}}, {"@type": "Question", "name": "Do colored codes work with a logo in the middle?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Color and a logo are separate concerns. When you add a logo in the tool, error correction rises to the highest level automatically to cover the hidden area. Just follow the same color rules: dark pattern, light background, strong contrast."}}]}</script>
+<!-- Cloudflare Web Analytics (cookieless, no personal data) --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e699a778c1664635913d24d7c1367fc9"}'></script>
+</body>
+</html>
